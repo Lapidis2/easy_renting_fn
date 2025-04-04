@@ -1,24 +1,12 @@
-import React from 'react';
+import React from 'react'
 import { FaBed, FaBath, FaHeart, FaShare, FaEye } from 'react-icons/fa';
 import { MdCropSquare } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import Properties from '../assets/property';
+import Properties from '../../assets/property';
 
-const ApartmentCards = () => {
-
-
-
-
-
-
-
-
-
-
-
-	
+const RentHouse = () => {
   return (
-    <div className="flex flex-wrap gap-6 justify-center py-6">
+    <div className="flex flex-wrap gap-6 justify-center py-6 mt-20">
       {Properties.map((property) => (
         <div key={property.id} className="max-w-sm rounded-2xl overflow-hidden shadow-lg p-4 bg-white">
           {/* Property Image and Status */}
@@ -71,7 +59,7 @@ const ApartmentCards = () => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default ApartmentCards;
+export default RentHouse

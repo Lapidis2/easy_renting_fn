@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import axios from "axios";
 
+import React, { useState } from "react";
+import axios from "axios"
 const RequestProperty = () => {
   const [formData, setFormData] = useState({
     title: "",
@@ -16,8 +16,11 @@ const RequestProperty = () => {
     area: "",
     type: "",
     features: "",
+
     image: null, // Matches the schema
   });
+
+   
 
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -30,6 +33,7 @@ const RequestProperty = () => {
   const handleImageUpload = (e) => {
     setFormData({ ...formData, image: e.target.files[0] });
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,7 +54,7 @@ const RequestProperty = () => {
       });
       setSuccessMessage("Your request has been submitted successfully!");
       console.log("Response:", response.data);
-
+       
       setTimeout(() => {
         setSuccessMessage("");
       }, 5000);
@@ -60,7 +64,12 @@ const RequestProperty = () => {
     } finally {
       setLoading(false);
     }
-  };
+
+ 
+  
+	
+
+
 
   return (
     <div className="max-w-3xl mx-auto mt-20 p-6 bg-white shadow-lg rounded-lg py-10">
@@ -156,6 +165,7 @@ const RequestProperty = () => {
             onChange={handleChange}
           />
         </div>
+
         <textarea
           name="description"
           placeholder="Additional Requirements"
@@ -176,6 +186,7 @@ const RequestProperty = () => {
         >
           {loading ? "Submitting..." : "Submit Request"}
         </button>
+
       </form>
     </div>
   );

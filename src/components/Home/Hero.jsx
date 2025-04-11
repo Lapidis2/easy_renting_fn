@@ -1,8 +1,9 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import background from "../../assets/background.jpg";
 import SearchBar from "../Home/SearchBar";
-import { searchData } from "../../assets/SearchData"; // ✅ Fix here
+import { searchData } from "../../assets/SearchData"; // ✅ Fix
 
 const HeroSection = () => {
   const locations = [...new Set(searchData.map((item) => item.location))];
@@ -34,7 +35,7 @@ const HeroSection = () => {
     <div className="relative py-16 px-4 sm:px-10 w-full mt-20">
       {/* Background */}
       <img
-        src={background}
+        src="./cover1.jpg"
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover brightness-75"
       />

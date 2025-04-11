@@ -35,7 +35,8 @@ const ApartmentCards = () => {
 
   if (error) {
     return <div className="text-center py-10 text-red-500">{error}</div>;
- 
+  }
+
   return (
     <div className="flex flex-wrap gap-6 justify-center py-6">
       {properties.map((property) => (

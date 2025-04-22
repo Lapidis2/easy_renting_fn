@@ -2,64 +2,48 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../Home/SearchBar";
 
-const HeroSection = () => {
+const HeroSection = ({ onSearchResults }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
 
-  const handleSearch = async ({ keyword, location, minPrice, maxPrice, status }) => {
-    console.log("Search submitted with:", { keyword, location, minPrice, maxPrice, status });
-
-    try {
-      const query = new URLSearchParams();
-
-      if (keyword) query.append("search", keyword);
-      if (location) query.append("location", location);
-      if (minPrice) query.append("minPrice", minPrice);
-      if (maxPrice) query.append("maxPrice", maxPrice);
-      if (status) query.append("status", status);
-
-      // Optional category field
-      query.append("category", "properties");
-
-      const response = await fetch(`https://easy-renting-bn.onrender.com/api/search?${query.toString()}`);
-      const data = await response.json();
-
-      setFilteredData(data);
-      setHasSearched(true);
-    } catch (error) {
-      console.error("Search failed:", error);
-      setFilteredData([]);
-      setHasSearched(true);
-    }
+  const handleSearchResults = (results) => {
+    setFilteredData(results);
+    setHasSearched(true);
+    onSearchResults(results); // Pass results to the parent component
   };
 
   return (
-    <div className="relative h-auto py-6 w-full mt-30">
-      {/* Background Image */}
-      <img
-        src="./homeImage.jpg"
-        alt="Background"
-        className="absolute inset-0 w-full h-full object-cover brightness-75"
-      />
+    <div className="relative h-auto py-12 px-4 sm:px-8 w-full bg-gray-900">
+      {/* Background */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/homeImage.jpg"
+          alt="Find your dream home"
+          className="w-full h-full object-cover brightness-75"
+        />
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+      </div>
 
-      {/* Overlay Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-white text-center">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight drop-shadow-lg">
+      {/* Content */}
+      <div className="relative z-10 max-w-4xl mx-auto text-center text-white">
+        <h1 className="text-4xl sm:text-5xl font-extrabold mb-6 drop-shadow-lg leading-tight">
           Find the perfect place to <br />
           live with your family in Rwanda.
         </h1>
 
         {/* Search Bar */}
-        <SearchBar onSearch={handleSearch} />
+        <div className="mt-6">
+          <SearchBar onResults={handleSearchResults} />
+        </div>
 
-        {/* Results Dropdown */}
+        {/* Results List */}
         {filteredData.length > 0 && (
-          <div className="w-full max-w-lg mt-4 bg-white text-gray-800 rounded-lg shadow-lg z-20">
+          <div className="mt-6 max-w-2xl mx-auto w-full bg-white rounded-xl shadow-lg text-gray-800 overflow-hidden">
             <div className="max-h-80 overflow-y-auto divide-y divide-gray-200">
               {filteredData.map((item) => (
                 <Link
                   key={item._id || item.id}
-                  to={item.path || "#"}
+                  to={`/property/${item._id}`}
                   className="block px-4 py-3 hover:bg-gray-100 transition duration-200"
                 >
                   <h2 className="text-lg font-semibold">{item.name}</h2>
@@ -70,9 +54,9 @@ const HeroSection = () => {
           </div>
         )}
 
-        {/* No results message */}
+        {/* No results */}
         {hasSearched && filteredData.length === 0 && (
-          <div className="text-white mt-6 text-lg bg-black/40 px-6 py-4 rounded-md backdrop-blur-sm">
+          <div className="mt-6 bg-red-500/80 text-white px-6 py-4 rounded-md text-lg">
             No results found. Try a different keyword, location, or status.
           </div>
         )}

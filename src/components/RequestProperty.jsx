@@ -17,8 +17,7 @@ const RequestProperty = () => {
     toilets: "",
     area: "",
     type: "",
-    features: "",
-    timeAgo: "",
+    features: [],
     image: null,
   });  
 
@@ -26,6 +25,21 @@ const RequestProperty = () => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [feature, setFeature] = useState("");
+  const [features, setFeatures] = useState([]);
+  
+  const addFeature = () => {
+          if (feature.trim()) {
+            setFeatures([...features, feature.trim()]);
+            setFeature("");
+          }
+          };
+        
+  const removeFeature = (index) => {
+          const updated = [...features];
+          updated.splice(index, 1);
+          setFeatures(updated);
+          };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -94,8 +108,8 @@ const RequestProperty = () => {
           />
           <select name="status" className="border p-2 rounded w-full" onChange={handleChange}>
             <option value="">-- Select Status --</option>
-            <option value="For Rent">For Rent</option>
-            <option value="For Sale">For Sale</option>
+            <option value="Rent">For Rent</option>
+            <option value="Sale">For Sale</option>
           </select>
           <input
             type="text"
@@ -154,14 +168,43 @@ const RequestProperty = () => {
             className="border p-2 rounded w-full"
             onChange={handleChange}
           />
-          <input
-            type="text"
-            name="features"
-            placeholder="Desired Features (comma separated)"
-            className="border p-2 rounded w-full"
-            onChange={handleChange}
-          />
         </div>
+          <div className="w-full max-w-md">
+      <label className="block font-semibold mb-2">Add Features:</label>
+      <div className="flex gap-2 mb-4">
+        <input
+          type="text"
+          className="border p-2 flex-grow rounded"
+          value={feature}
+          name='features'
+          onChange={(e) => setFeature(e.target.value)}
+          placeholder="e.g. WiFi, Pool"
+        />
+        <button
+          className="bg-blue-600 text-white px-6 rounded"
+          onClick={addFeature}
+          type="button"
+        >
+          Add
+        </button>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {features.map((item, index) => (
+          <div
+            key={index}
+            className="bg-gray-200 px-4 py-1 rounded-full flex items-center"
+          >
+            {item}
+            <button
+              className="ml-2 text-red-500"
+              onClick={() => removeFeature(index)}
+            >
+              &times;
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
 
         <textarea
           name="description"

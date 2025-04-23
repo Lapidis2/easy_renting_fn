@@ -9,13 +9,14 @@ const ApartmentCards = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate(); // Initialize useNavigate
-  const {id} = useParams(); 
+  const {id: _id} = useParams(); 
   useEffect(() => {
     const fetchProperties = async () => {
       try {
         const response = await axios.get('https://easy-renting-bn.onrender.com/api/get-properties');
         setProperties(response.data); 
       } catch (err) {
+        console.error("Error fetching properties:", err); // Log the error
         setError('Failed to fetch properties. Please try again later.');
       } finally {
         setLoading(false);

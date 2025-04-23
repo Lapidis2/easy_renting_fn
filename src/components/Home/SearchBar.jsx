@@ -7,6 +7,9 @@ const SearchBar = ({ onSearch }) => {
   const [status, setStatus] = useState(null);
   const [category, setCategory] = useState(null);
   const [keyword, setKeyword] = useState("");
+  const [district, setDistrict] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -17,44 +20,40 @@ const SearchBar = ({ onSearch }) => {
   ];
 
   const categoryOptions = [
-    { value: "apartment", label: "Apartment" },
-    { value: "car", label: "Car" },
-    { value: "house", label: "House" },
-    { value: "hotel", label: "Hotel" },
-    { value: "land", label: "Land" },
+    { value: "cars", label: "Cars" },
+    { value: "properties", label: "Properties (Apartment, House, Hotel)" },
+    { value: "lands", label: "Land" },
+    { value: "motors", label: "Motors" },
+    { value: "supplys", label: "Supply Items" },
+    { value: "requests", label: "Requests" },
+    { value: "clothes", label: "Clothes" },
   ];
 
   useEffect(() => {
     const fetchData = async () => {
-      if (keyword.trim() === "" && !status && !category) {
+      if (!category && keyword.trim() === "" && district.trim() === "" && !minPrice && !maxPrice) {
         setFilteredResults([]);
         return;
       }
 
       setLoading(true);
       try {
-        const selectedStatus = status ? status.value : "";
-        const selectedCategory = category ? category.value : ""; 
-
         const queryParams = {
-          search: keyword,
-          status: selectedStatus,
+          category: category ? category.value : undefined,
+          search: keyword.trim() || undefined,
+          district: district.trim() || undefined,
+          minPrice: minPrice || undefined,
+          maxPrice: maxPrice || undefined,
+          status: status ? status.value : undefined,
         };
 
-        // Only include category if it has a valid value
-        if (selectedCategory) {
-          queryParams.category = selectedCategory;
-        }
-
         const query = new URLSearchParams(queryParams).toString();
-
-        console.log("Query Parameters:", queryParams);
 
         const response = await axios.get(
           `https://easy-renting-bn.onrender.com/api/search?${query}`
         );
 
-        setFilteredResults(response.data);
+        setFilteredResults(response.data.data || []);
       } catch (error) {
         console.error("Error fetching search results:", error);
         setFilteredResults([]);
@@ -68,14 +67,19 @@ const SearchBar = ({ onSearch }) => {
     }, 500);
 
     return () => clearTimeout(delay);
-  }, [keyword, status, category]);
+  }, [category, keyword, district, minPrice, maxPrice, status]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const selectedStatus = status ? status.value : "";
-    const selectedCategory = category ? category.value : "";
-    onSearch({ keyword, status: selectedStatus, category: selectedCategory });
-    console.log("Search submitted with:", { keyword, selectedStatus, selectedCategory });
+    const queryParams = {
+      category: category ? category.value : "",
+      search: keyword.trim(),
+      district: district.trim(),
+      minPrice,
+      maxPrice,
+      status: status ? status.value : "",
+    };
+    onSearch(queryParams);
   };
 
   return (
@@ -84,7 +88,7 @@ const SearchBar = ({ onSearch }) => {
         onSubmit={handleSubmit}
         className="flex flex-col md:flex-row items-stretch md:items-center gap-3 bg-white p-5 rounded-xl shadow-lg w-full"
       >
-        {/* Keyword input */}
+        {/* Keyword Input */}
         <input
           type="text"
           value={keyword}
@@ -93,7 +97,7 @@ const SearchBar = ({ onSearch }) => {
           className="px-4 py-3 outline-none text-sm w-full rounded-md border border-gray-300 bg-white text-black placeholder-gray-500"
         />
 
-        {/* Status dropdown */}
+        {/* Status Dropdown */}
         <div className="w-full md:w-1/3">
           <Select
             options={statusOptions}
@@ -108,7 +112,7 @@ const SearchBar = ({ onSearch }) => {
           />
         </div>
 
-        {/* Category dropdown */}
+        {/* Category Dropdown */}
         <div className="w-full md:w-1/3">
           <Select
             options={categoryOptions}
@@ -123,7 +127,34 @@ const SearchBar = ({ onSearch }) => {
           />
         </div>
 
-        {/* Submit button */}
+        {/* District Input */}
+        <input
+          type="text"
+          value={district}
+          onChange={(e) => setDistrict(e.target.value)}
+          placeholder="Enter district"
+          className="px-4 py-3 outline-none text-sm w-full rounded-md border border-gray-300 bg-white text-black placeholder-gray-500"
+        />
+
+        {/* Min Price Input */}
+        <input
+          type="number"
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}
+          placeholder="Min Price"
+          className="px-4 py-3 outline-none text-sm w-full rounded-md border border-gray-300 bg-white text-black placeholder-gray-500"
+        />
+
+        {/* Max Price Input */}
+        <input
+          type="number"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+          placeholder="Max Price"
+          className="px-4 py-3 outline-none text-sm w-full rounded-md border border-gray-300 bg-white text-black placeholder-gray-500"
+        />
+
+        {/* Submit Button */}
         <button
           type="submit"
           className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md w-full md:w-auto flex items-center justify-center"
@@ -133,28 +164,28 @@ const SearchBar = ({ onSearch }) => {
         </button>
       </form>
 
-      {/* Loading indicator */}
+      {/* Loading Indicator */}
       {loading && (
         <div className="absolute bg-white text-gray-500 shadow-lg w-full mt-2 rounded-lg p-4">
           Loading...
         </div>
       )}
 
-      {/* Results dropdown */}
+      {/* Results Dropdown */}
       {filteredResults.length > 0 && (
         <ul className="absolute bg-white text-gray-800 shadow-lg w-full mt-2 rounded-lg max-h-60 overflow-y-auto z-10">
           {filteredResults.map((item) => (
             <li
-              key={item.id}
+              key={item._id}
               className="px-4 py-3 hover:bg-gray-100 cursor-pointer"
             >
-              {item.title || item.name} - {item.type} - {item.location}
+              {item.title || item.name} - {item.type || item.category} - {item.location}
             </li>
           ))}
         </ul>
       )}
 
-      {/* No results */}
+      {/* No Results Message */}
       {!loading && filteredResults.length === 0 && keyword.trim() !== "" && (
         <div className="absolute bg-white text-gray-500 shadow-lg w-full mt-2 rounded-lg p-4">
           No results found

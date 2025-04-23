@@ -16,6 +16,7 @@ const SupplyProperty = () => {
 		console.assert(response.data, 'API Response:', response.data); 
 		setProperties(response.data.data); 
       } catch (err) {
+        console.error("Error fetching properties:", err); // Log the error
         setError('Failed to fetch properties. Please try again later.');
       } finally {
         setLoading(false);
@@ -38,7 +39,7 @@ const SupplyProperty = () => {
   }
 
   return (
-    <div className="container mx-auto mt-40 px-6 mt-10 mb-6 bg-gray-100">
+    <div className="container mx-auto mt-40 px-6  mb-6 bg-gray-100">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Supplied  Properties</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {properties.map((property) => (

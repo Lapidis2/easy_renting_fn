@@ -2,13 +2,13 @@ import React from "react";
 
 const AssetProperty = ({ assets = [], type }) => {
   const displayType = type ? type.charAt(0).toUpperCase() + type.slice(1) : "";
-
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 mt-10 mb-6 bg-gray-100">
-      <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
-        {displayType} Listings
-      </h2>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3  mb-6">
 
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+        {displayType}Other Assets
+      </h2>
+     
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {assets.length > 0 ? (
           assets.map((item) => (
@@ -17,10 +17,11 @@ const AssetProperty = ({ assets = [], type }) => {
               className="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 p-5"
             >
               <img
-                src={item.image}
-                alt={item.name}
+                src={item.image || "https://placehold.co/300x200?text=No+Image"}
+                alt={item.name || "No Image"}
                 className="w-full h-48 object-cover rounded-md mb-4"
               />
+
 
               <h3 className="text-xl font-semibold text-blue-800 mb-1">
                 {item.name}
@@ -65,15 +66,14 @@ const AssetProperty = ({ assets = [], type }) => {
               )}
 
               {/* Common Fields */}
-              <div className="mt-4 text-sm text-gray-600 space-y-1">
-                {item.owner && <p>Owner: {item.owner}</p>}
+              <div className="mt-2 text-sm text-gray-600 space-y-1">
                 {item.contact && <p>Contact: {item.contact}</p>}
                 {item.timeAgo && <p>Posted: {item.timeAgo}</p>}
               </div>
             </div>
           ))
         ) : (
-          <p className="text-center text-gray-500">No assets found.</p>
+          <p className="text-center text-gray-500">No Other Assets Found.</p>
         )}
       </div>
     </div>

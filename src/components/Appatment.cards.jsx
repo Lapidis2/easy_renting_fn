@@ -3,22 +3,20 @@ import { FaBed, FaBath } from 'react-icons/fa';
 import { MdCropSquare } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-const ApartmentCards = ({ properties = [] }) => {
+const ApartmentCards = (properties ) => {
+  const property = properties.properties || [];
   const navigate = useNavigate();
 
   const handleViewDetails = (id) => {
     navigate(`/property/${id}`);
   };
-
-  if (!properties.length) {
-    return <div className="text-center py-10 text-gray-500">No properties found.</div>;
+  if (property.length == 0) {
+    return <div className="text-center py-4 text-gray-500">No properties found.</div>;
   }
-
   return (
-    <div className="flex flex-wrap gap-6 justify-center py-6">
-      {properties.map((property) => (
+    <div className="flex flex-wrap gap-6 py-6">
+      {property.map((property) => (
         <div key={property._id} className="max-w-sm rounded-2xl overflow-hidden shadow-lg p-4 bg-white">
-          {/* Property Image and Status */}
           <div className="relative">
             <img
               className="w-full h-48 object-cover rounded-md"
@@ -29,8 +27,6 @@ const ApartmentCards = ({ properties = [] }) => {
               {property.status}
             </span>
           </div>
-
-          {/* Property Details */}
           <div className="p-4">
             <h3 className="text-lg font-bold text-gray-800 mt-1">RWF {property.price}</h3>
             <p className="text-gray-600 text-sm mt-1">{property.description.substring(0, 80)}...</p>
@@ -46,8 +42,6 @@ const ApartmentCards = ({ properties = [] }) => {
                 <MdCropSquare /> <span>{property.area}</span>
               </div>
             </div>
-
-            {/* Navigate to Property Detail Page */}
             <button
               onClick={() => handleViewDetails(property._id)}
               className="mt-4 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 cursor-pointer"
@@ -55,8 +49,6 @@ const ApartmentCards = ({ properties = [] }) => {
               View Details
             </button>
           </div>
-
-          {/* Footer Information */}
           <div className="p-4 text-gray-500 text-sm flex justify-between border-t">
             <span>{property.owner}</span>
             <span>{property.timeAgo}</span>

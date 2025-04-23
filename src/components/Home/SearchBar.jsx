@@ -1,126 +1,31 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { FaSearch, FaTimes } from 'react-icons/fa';
 
-const SearchBar = ({ onResults = () => {} }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [status, setStatus] = useState('');
-  const [type, setType] = useState('');
-  const [district, setDistrict] = useState('');
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-  const [category, setCategory] = useState('properties'); // Default category
+function SearchBar({ onSearchResults }) {
+  const [query, setQuery] = useState('');
 
-  const handleSearch = async () => {
-    try {
-      const queryParams = new URLSearchParams();
+  useEffect(() => {
+    const fetchResults = async () => {
+      const res = await fetch(`https://easy-renting-bn.onrender.com/api/search?q=${encodeURIComponent(query)}`);
+      const data = await res.json();
+      onSearchResults(data); // Pass data to parent
+    };
 
-      if (category) queryParams.append('category', category);
-      if (searchTerm) queryParams.append('search', searchTerm);
-      if (status) queryParams.append('status', status);
-      if (type) queryParams.append('type', type);
-      if (district) queryParams.append('district', district);
-      if (minPrice) queryParams.append('minPrice', minPrice);
-      if (maxPrice) queryParams.append('maxPrice', maxPrice);
-
-      const response = await axios.get(`https://easy-renting-bn.onrender.com/api/search?${queryParams.toString()}`);
-      const results = response.data.data;
-
-      onResults(results); // Safely call onResults
-    } catch (error) {
-      console.error('Search error:', error);
-    }
-  };
+    fetchResults();
+  }, [query]);
 
   return (
-    <div className="bg-white shadow-md p-4 rounded-md">
-      <div className="flex flex-col text-gray-600 sm:flex-row gap-2">
-        {/* Category */}
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="border p-2 rounded w-full sm:w-1/3"
-        >
-          <option value="properties">Properties</option>
-          <option value="cars">Cars</option>
-          <option value="clothes">Clothes</option>
-          <option value="lands">Lands</option>
-          <option value="supply">Supply</option>
-          <option value="requests">Requests</option>
-          <option value="motors">Motors</option>
-        </select>
-
-        {/* Search Term */}
-        <input
-          type="text"
-          placeholder="Search by title, location, etc."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="border p-2 rounded w-full lg:w-1/3"
-        />
-
-        {/* District */}
-        <input
-          type="text"
-          placeholder="District"
-          value={district}
-          onChange={(e) => setDistrict(e.target.value)}
-          className="border p-2 rounded w-full lg:w-1/3"
-        />
-
-        {/* Status */}
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className="border p-2 rounded w-full sm:w-1/3"
-        >
-          <option value="">All Statuses</option>
-          <option value="available">Available</option>
-          <option value="sold">Sold</option>
-          <option value="pending">Pending</option>
-        </select>
-
-        {/* Type */}
-        <select
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          className="border p-2 rounded w-full sm:w-1/3"
-        >
-          <option value="">All Types</option>
-          <option value="apartment">Apartment</option>
-          <option value="villa">Villa</option>
-          <option value="house">House</option>
-          <option value="studio">Studio</option>
-          <option value="commercial">Commercial</option>
-        </select>
-
-        {/* Min Price */}
-        <input
-          type="number"
-          placeholder="Min Price"
-          value={minPrice}
-          onChange={(e) => setMinPrice(e.target.value)}
-          className="border p-2 rounded w-full lg:w-1/3"
-        />
-
-        {/* Max Price */}
-        <input
-          type="number"
-          placeholder="Max Price"
-          value={maxPrice}
-          onChange={(e) => setMaxPrice(e.target.value)}
-          className="border p-2 rounded w-full lg:w-1/3"
-        />
-
-        {/* Search Button */}
-        <button
-          onClick={handleSearch}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          Search
-        </button>
-      </div>
+    <div className="relative border-2 border-gray-400  py-1 px-2 lg:mx-auto mx-2 flex justify-center items-center bg-gray-100 rounded-lg shadow-md my-4">
+      <input
+        type="text"
+        placeholder="Search properties or assets..."
+        className="border p-2 rounded w-full outline-none border-none"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+       <FaSearch className="absolute right-4 text-gray-500" />
     </div>
   );
-};
+}
 
 export default SearchBar;

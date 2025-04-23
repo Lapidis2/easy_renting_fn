@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Hero from "./Home/Hero";
 import ApartmentCards from "./Appatment.cards";
 import Footer from "./Footer";
-import SupplyProperty from "../components/SupplyProperty";
 import AssetProperty from "./AssetProperty";
 import SearchBar from "./Home/SearchBar";
 
@@ -36,7 +35,6 @@ const Home = () => {
         <>
           <ApartmentCards />
           <AssetProperty />
-          {/* <SupplyProperty /> */}
         </>
       )}
 

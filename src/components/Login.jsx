@@ -40,9 +40,9 @@ const Login = () => {
 	  const userRole = response.data.user?.role;
       setTimeout(() => {
         if (userRole === 'seller') {
-          navigate('/supply');
+          navigate('/admin/supply-properties');
         } else if (userRole === 'buyer') {
-          navigate('/request');
+          navigate('/admin/requested-properties');
         } else if (userRole === 'admin') {
           navigate('/dashboard');
         } else {

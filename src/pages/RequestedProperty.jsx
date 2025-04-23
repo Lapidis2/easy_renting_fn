@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import PropertyCard from "./PropertyCard";
-
-
+import PropertyCard from "../components/Admin/PropertyCard";
+import { useNavigate } from "react-router-dom";
 export default function RequestedProperties() {
   const [requestedProperties, setRequestedProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRequestedProperties = async () => {
@@ -44,8 +44,12 @@ export default function RequestedProperties() {
           <PropertyCard key={property._id} property={property} />
         ))}
       </div>
+
+
+      <button onClick={()=>{
+		navigate('/create-request-property')
+	  }} className=' text-xl text-white flex items-center bg-green-500 hover:bg-green-600 py-2 px-4 mt-10 lg:w-full min-w-[300px] mx-auto'>Supply Property</button>
     </div>
   );
 };
-
 

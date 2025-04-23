@@ -119,7 +119,7 @@ const Login = () => {
             type="submit"
             className="w-full py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
           >
-			{loading ? 'Logging in wait...' : 'Login'}
+			{loading ? 'Logging...' : 'Login'}
           </button>
 		  
 		   {error && (
@@ -133,8 +133,17 @@ const Login = () => {
             </div>
           )}
         </form>
+      <div className="mt-4 text-center">
+        <p className="text-sm text-gray-600">
+          Don't have an account?{' '}
+          <a href="/register" className="text-green-500 hover:text-green-700 font-semibold">
+            Register here
+          </a>
+        </p>
+    </div>
       </div>
     </div>
+
   );
 };
 

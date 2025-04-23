@@ -24,6 +24,9 @@ function SearchBar({ onSearchResults }) {
         onChange={(e) => setQuery(e.target.value)}
       />
        <FaSearch className="absolute right-4 text-gray-500" />
+
+
+     
     </div>
   );
 }

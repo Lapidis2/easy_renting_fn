@@ -74,7 +74,7 @@ export const NavBar = () => {
 						)}
 					</div>
 
-					<Link to="/supply-property" className="hover:text-green-800">Supply Property</Link>
+					
 					<Link to="/request-property" className="hover:text-green-800">Request Property</Link>
 					<Link to="/contact" className="hover:text-green-800">Contact</Link>
 				</nav>
@@ -107,9 +107,7 @@ export const NavBar = () => {
 							)}
 						</div>
 
-						<Link to="/supply-property" className="p-3 border-b hover:text-green-800" onClick={() => setIsOpen(false)}>
-							Supply Property
-						</Link>
+						
 						<Link to="/request-property" className="p-3  hover:text-green-800" onClick={() => setIsOpen(false)}>Request Property</Link>
 						<Link to="/contact" className="p-3 hover:text-green-800" onClick={() => setIsOpen(false)}>
 							Contact

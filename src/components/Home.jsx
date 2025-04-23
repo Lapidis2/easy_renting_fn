@@ -6,6 +6,7 @@ import SupplyProperty from "../components/SupplyProperty";
 import AssetProperty from "./AssetProperty";
 import SearchBar from "./Home/SearchBar";
 
+
 const Home = () => {
   const [filteredAssets, setFilteredAssets] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
@@ -40,7 +41,7 @@ const Home = () => {
       )}
 
       <Footer />
-    </div>
+      </div>
   );
 };
 

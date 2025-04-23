@@ -3,10 +3,11 @@ import { FaBed, FaBath } from 'react-icons/fa';
 import { MdCropSquare } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
+
 const ApartmentCards = (properties ) => {
   const property = properties.properties || [];
   const navigate = useNavigate();
-
+  
   const handleViewDetails = (id) => {
     navigate(`/property/${id}`);
   };

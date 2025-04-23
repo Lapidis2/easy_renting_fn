@@ -21,7 +21,8 @@ const PropertyDetail = () => {
     const fetchProperty = async () => {
       try {
         const response = await axios.get(`https://easy-renting-bn.onrender.com/api/get-property/${id}`);
-        setProperty(response.data); // Assuming the API returns the property details
+        const data = response.data.property;
+        setProperty(data); 
       } catch (err) {
         setError('Failed to fetch property details. Please try again later.');
       } finally {
@@ -145,7 +146,7 @@ const PropertyDetail = () => {
                 <option value="">I'm interested in</option>
                 <option value="buyer">Buying</option>
                 <option value="seller">Selling</option>
-                <option value="landlord">Renting</option>
+                <option value="guest">Other</option>
               </select>
             </div>
           </div>

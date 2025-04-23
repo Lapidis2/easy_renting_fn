@@ -39,7 +39,6 @@ function App() {
         <Route path="/get-properties/type/:type" element={<PropertyTypeCards />} />
           
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route index element={<Navigate to="/admin/requested-properties" replace />} />
           <Route path="/admin/requested-properties" element={<RequestedProperties />} />
           <Route path="/admin/supply-properties" element={<SupplyProperty />} />
           <Route path="/admin/supply-detail/:id" element={<SupplyDetail />} />

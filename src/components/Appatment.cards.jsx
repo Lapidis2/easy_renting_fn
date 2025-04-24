@@ -15,9 +15,9 @@ const ApartmentCards = (properties ) => {
     return <div className="text-center py-4 text-gray-500">No properties found.</div>;
   }
   return (
-    <div className="flex flex-wrap gap-6 py-6">
+    <div className="flex flex-wrap gap-6 py-6 ">
       {property.map((property) => (
-        <div key={property._id} className="max-w-sm rounded-2xl overflow-hidden shadow-lg p-4 bg-white">
+        <div key={property._id} className="max-w-7xl mx-auto lg:mx-1 rounded-2xl overflow-hidden shadow-lg p-4 bg-white">
           <div className="relative">
             <img
               className="w-full h-48 object-cover rounded-md"

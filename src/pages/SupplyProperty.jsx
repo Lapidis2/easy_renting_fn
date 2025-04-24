@@ -55,7 +55,7 @@ const SupplyProperty = () => {
 
 	  <button onClick={()=>{
 		navigate('/create-supply-property')
-	  }} className=' text-xl text-white flex items-center bg-green-500 hover:bg-green-600 py-2 px-4 mt-10 lg:w-full min-w-[300px] mx-auto'>Supply Property</button>
+	  }} className='rounded-lg text-xl text-white flex items-center bg-green-500 hover:bg-green-600 py-2 px-4 mt-10 lg:w-full min-w-[300px] mx-auto'>Supply Property</button>
     </div>
   );
 };

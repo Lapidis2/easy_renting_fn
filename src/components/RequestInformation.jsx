@@ -14,6 +14,7 @@ const ContactForm = ({ endpoint }) => {
   const [formData, setFormData] = useState(initialFormState);
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -27,13 +28,14 @@ const ContactForm = ({ endpoint }) => {
     e.preventDefault();
     setLoading(true);
     setSuccessMessage("");
+    setErrorMessage("");
 
     try {
       const response = await axios.post(endpoint, formData);
       setSuccessMessage("Request information submitted successfully!");
-      setFormData(initialFormState); // Reset form
+      setFormData(initialFormState); // reset form
     } catch (error) {
-      alert("Something went wrong. Please try again.");
+      setErrorMessage("Something went wrong. Please try again.");
       console.error("Submission error:", error);
     } finally {
       setLoading(false);
@@ -47,6 +49,12 @@ const ContactForm = ({ endpoint }) => {
       {successMessage && (
         <div className="bg-green-100 text-green-700 p-2 rounded mt-4">
           {successMessage}
+        </div>
+      )}
+
+      {errorMessage && (
+        <div className="bg-red-100 text-red-700 p-2 rounded mt-2">
+          {errorMessage}
         </div>
       )}
 
@@ -77,6 +85,7 @@ const ContactForm = ({ endpoint }) => {
             />
           </div>
         </div>
+
         <div className="grid grid-cols-2 gap-4 mt-3">
           <div className="flex flex-col gap-2">
             <label htmlFor="phone">Phone</label>
@@ -106,6 +115,7 @@ const ContactForm = ({ endpoint }) => {
             </select>
           </div>
         </div>
+
         <div className="flex flex-col gap-2 mt-3">
           <label htmlFor="message">Message</label>
           <textarea
@@ -118,6 +128,7 @@ const ContactForm = ({ endpoint }) => {
             required
           ></textarea>
         </div>
+
         <div className="flex items-center gap-2 my-3">
           <input
             type="checkbox"
@@ -129,6 +140,7 @@ const ContactForm = ({ endpoint }) => {
             I agree to receive emails from <strong>GREAT CONNECTION LTD</strong>
           </label>
         </div>
+
         <button
           type="submit"
           className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 disabled:opacity-50"

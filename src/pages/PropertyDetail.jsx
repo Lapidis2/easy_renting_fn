@@ -2,21 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FaHome, FaLocationArrow } from "react-icons/fa";
 import axios from "axios";
+import ContactForm from "../components/RequestInformation";
 
 const PropertyDetail = () => {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    role: "",
-    message: "",
-    agree: false,
-  });
-
+ 
   useEffect(() => {
     const fetchProperty = async () => {
       try {
@@ -44,19 +37,6 @@ const PropertyDetail = () => {
   if (!property) {
     return <h2 className="text-red-500 text-center mt-10">Property not found</h2>;
   }
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Submitted:", formData);
-  };
 
   return (
     <div className="container mx-auto p-6 mt-20">
@@ -120,47 +100,7 @@ const PropertyDetail = () => {
     )}
   </div>
 </div>
-
-      {/* Contact Form */}
-      <div className="my-12 p-4 bg-gray-100 rounded-lg shadow-lg lg:w-[900px] w-full mx-auto">
-        <h1 className="text-xl font-bold">Contact Information</h1>
-        <form onSubmit={handleSubmit} className="mt-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="name">Name</label>
-              <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter Your Name" className="p-2 border rounded w-full" />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="email">Email</label>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter Your Email" className="p-2 border rounded w-full" />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4 mt-3">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="phone">Phone</label>
-              <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="07xxxxxxxx" className="p-2 border rounded w-full" />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="role">Role</label>
-              <select name="role" value={formData.role} onChange={handleChange} className="p-2 border rounded w-full">
-                <option value="">I'm interested in</option>
-                <option value="buyer">Buying</option>
-                <option value="seller">Selling</option>
-                <option value="guest">Other</option>
-              </select>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2 mt-3">
-            <label htmlFor="message">Message</label>
-            <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Hello, I am interested in this property" rows="3" className="p-2 border rounded w-full"></textarea>
-          </div>
-          <div className="flex items-center gap-2 my-3">
-            <input type="checkbox" name="agree" checked={formData.agree} onChange={handleChange} />
-            <label className="text-gray-600">I agree to receive emails from <strong>GREAT CONNECTION LTD</strong></label>
-          </div>
-          <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">Request Information</button>
-        </form>
-      </div>
+	  <ContactForm endpoint={"https://easy-renting-bn.onrender.com/api/request-inform"}  />
     </div>
   );
 };

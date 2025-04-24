@@ -13,7 +13,8 @@ import ListingDetails from './components/Home/ListingDetails';
 import RequestPropertiesForm from './components/RequestPropertyForm';
 import PropertyTypeCards from './pages/PropertyTypeCards';
 import AssetPropertyListByType from './pages/AssetPropertyListByType'
-
+import PropertyRequested from "./pages/RequestedProperty"
+import PropertySupplied from "./pages/SupplyProperty"
 
 import Dashboard from './components/Admin/Dashboard';
 import SupplyProperty from './components/Admin/SupplyProperty';
@@ -37,7 +38,9 @@ function App() {
         <Route path="/details/:id" element={<ListingDetails />} />
         <Route path="/asset-property/:type" element={<AssetPropertyListByType />} />
         <Route path="/get-properties/type/:type" element={<PropertyTypeCards />} />
-          
+        <Route path="/property-requested" element={<PropertyRequested />} />
+		<Route path="/supplied-property" element={<PropertySupplied />} />
+		  
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin/requested-properties" element={<RequestedProperties />} />
           <Route path="/admin/supply-properties" element={<SupplyProperty />} />

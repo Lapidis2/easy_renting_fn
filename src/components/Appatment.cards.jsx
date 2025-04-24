@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const ApartmentCards = (properties ) => {
-  const property = properties.properties || [];
+  const property = (properties.properties || []).slice(0, 12);
   const navigate = useNavigate();
   
   const handleViewDetails = (id) => {

@@ -5,7 +5,7 @@ const AssetProperty = ({ assets = [], type }) => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3  mb-6">
 
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+      <h2 className="text-2xl text-center font-semibold text-gray-800 mb-4">
         {displayType}Other Assets
       </h2>
      
@@ -73,7 +73,7 @@ const AssetProperty = ({ assets = [], type }) => {
             </div>
           ))
         ) : (
-          <p className="text-center text-gray-500">No Other Assets Found.</p>
+        <p className="text-center text-gray-500">No Other Assets Found.</p>
         )}
       </div>
     </div>

@@ -3,6 +3,8 @@ import { FaMapMarkerAlt, FaPhoneAlt, FaShareAlt } from "react-icons/fa";
 import facebook from "../../src/assets/facebook.png";
 import instagram from "../../src/assets/instagram.png";
 import linkedin from "../../src/assets/linkedin.png";
+import tiktok from "../../src/assets/ticktock.png";
+import twitter from "../../src/assets/twitter.png";
 import axios from "axios";
 
 const Contact = () => {
@@ -45,7 +47,7 @@ const Contact = () => {
             <div>
               <h3 className="font-semibold text-gray-600">Location</h3>
               <p className="text-gray-700">
-                No. B104 Irembo House, N.72 KN5 Road, Remera, Kigali, Rwanda
+              Kigali-Nyarugenge, Nyamirambo
               </p>
             </div>
           </div>
@@ -56,7 +58,7 @@ const Contact = () => {
             <FaPhoneAlt className="text-green-500 text-2xl" />
             <div>
               <h3 className="font-semibold text-gray-600">Reach us on Phone</h3>
-              <p className="text-gray-700 font-bold">+250 788 441 844</p>
+              <p className="text-gray-700 font-bold">+250 784008814</p>
             </div>
           </div>
         </div>
@@ -66,16 +68,23 @@ const Contact = () => {
             <FaShareAlt className="text-green-500 text-2xl" />
             <h3 className="font-semibold text-gray-600">Follow Us On</h3>
           </div>
-          <div className="flex gap-4 mt-3 text-green-500 text-xl">
+          <div className="flex flex-wrap gap-4 mt-3 text-green-500 text-xl">
             <a href="https://web.facebook.com/dusabimana.paccy.5" className="hover:text-green-700 gap-2 flex ">
-              <img className="h-8" src={facebook} alt="facebook" /> facebook
+              <img className="h-8 w-8" src={facebook} alt="facebook" /> facebook
             </a>
             <a href="https://www.linkedin.com/in/pacifique-dusabimana-51a48a350/" className="hover:text-green-700 flex gap-2 ">
-              <img className="h-8" src={linkedin} alt="linkedin" /> linkedin
+              <img className="h-8 w-8" src={linkedin} alt="linkedin" /> linkedin
             </a>
-            <a href="https://www.instagram.com/pacifique_dusabimana/" className="hover:text-green-700 flex gap-2">
-              <img className="h-8" src={instagram} alt="instagram" /> Instagram
+            <a href="https://www.instagram.com/pacifique_dusabimana" className="hover:text-green-700 flex gap-2">
+              <img className="h-8 w-8" src={instagram} alt="instagram" /> Instagram
             </a>
+            <a href="https://www.tiktok.com/@pacifique.11_d1 " className="hover:text-green-700 flex gap-2">
+              <img className="h-10 w-10" src={tiktok} alt="instagram" /> Tiktok
+            </a>
+            <a href="https://www.tiktok.com/@pacifique.11_d1 " className="hover:text-green-700 flex gap-2">
+              <img className="h-8" src={twitter} alt="instagram" /> Twitter-X
+            </a>
+           
           </div>
         </div>
       </div>

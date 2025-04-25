@@ -62,7 +62,7 @@ const PropertyDetail = () => {
     <div className="container mx-auto p-6 mt-20">
       {/* Breadcrumb Navigation */}
       <div className="flex items-center gap-2 text-gray-600 my-6">
-        <FaHome /> <Link to="/" className="text-gray-500">Home</Link> <span className="text-gray-500 text-xl">/</span> <span className="text-gray-800">{property.title}</span>
+        <FaHome /> <Link to="/" className="text-gray-500 hover:text-blue-300">Home</Link> <span className="text-gray-500 text-xl">/</span> <span className="text-gray-800 hover:text-blue-300">{property.title}</span>
       </div>
 
       {/* Property Header */}

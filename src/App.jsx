@@ -21,6 +21,7 @@ import SupplyDetail from './components/Admin/SupplyDetail';
 import RequestedPropertyDetail from './components/Admin/RequestedPropertyDetail';
 import RequestedProperties from './components/Admin/RequestedProperties';
 import './App.css';
+import AssetDetailPage from './pages/AssetDetail';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/property/:id" element={<PropertyDetail />} />
         <Route path="/details/:id" element={<ListingDetails />} />
         <Route path="/asset-property/:type" element={<AssetPropertyListByType />} />
+        <Route path="/asset/:id" element={<AssetDetailPage />} />
         <Route path="/get-properties/type/:type" element={<PropertyTypeCards />} />
           
           <Route path="/dashboard" element={<Dashboard />} />

@@ -70,16 +70,16 @@ const Contact = () => {
           </div>
           <div className="flex flex-wrap gap-4 mt-3 text-green-500 text-xl">
             <a href="https://web.facebook.com/dusabimana.paccy.5" className="hover:text-green-700 gap-2 flex ">
-              <img className="h-8" src={facebook} alt="facebook" /> facebook
+              <img className="h-8 w-8" src={facebook} alt="facebook" /> facebook
             </a>
             <a href="https://www.linkedin.com/in/pacifique-dusabimana-51a48a350/" className="hover:text-green-700 flex gap-2 ">
-              <img className="h-8" src={linkedin} alt="linkedin" /> linkedin
+              <img className="h-8 w-8" src={linkedin} alt="linkedin" /> linkedin
             </a>
             <a href="https://www.instagram.com/pacifique_dusabimana" className="hover:text-green-700 flex gap-2">
-              <img className="h-8" src={instagram} alt="instagram" /> Instagram
+              <img className="h-8 w-8" src={instagram} alt="instagram" /> Instagram
             </a>
             <a href="https://www.tiktok.com/@pacifique.11_d1 " className="hover:text-green-700 flex gap-2">
-              <img className="h-8" src={tiktok} alt="instagram" /> Tiktok
+              <img className="h-10 w-10" src={tiktok} alt="instagram" /> Tiktok
             </a>
             <a href="https://www.tiktok.com/@pacifique.11_d1 " className="hover:text-green-700 flex gap-2">
               <img className="h-8" src={twitter} alt="instagram" /> Twitter-X

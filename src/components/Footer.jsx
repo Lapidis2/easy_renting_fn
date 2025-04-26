@@ -41,15 +41,15 @@ const Footer = () => {
 	}
  
   return (
-	<footer className="bg-[#002F47] text-white py-10 px-6 md:px-16">
+	<footer className="bg-[#002F47] mt-12 text-white py-10 px-6 md:px-16">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         
         <div>
           <h2 className="text-2xl font-bold flex items-center">
-            <span className="text-green-700">GREAT CONNECTION BUSINESS GROUP</span>
+            <span className="text-green-700">GREAT CONNECTION</span>
           </h2>
           <p className="mt-4 text-gray-300 text-sm">
-            Are you considering investing in real estate in Rwanda? great connection business group
+            Are you considering investing in real estate in Rwanda? great connection 
             can help you find the best deal in Kigali. We offer a variety
             of real estate services, including finding buy a property or
             rent in Kigali, such as houses, land, apartments, and cars.
@@ -63,11 +63,9 @@ const Footer = () => {
           </h3>
           <ul className="mt-4 space-y-2 text-gray-300 text-sm">
             <li>About us</li>
-            <li>Neighborhoods</li>
-            <li>Blog</li>
-            <li>FAQs (Frequently Asked Questions)</li>
-            <li>Sell your property</li>
-            <li>Real Estate Investment Calculator</li>
+            <li>Terms & condition</li>
+            <li>Sell property</li>
+            <li>Buyy property</li>
           </ul>
         </div>
 
@@ -113,21 +111,21 @@ const Footer = () => {
     rel="noopener noreferrer"
     className="hover:underline"
   >
-    Kigali-Nyarugenge, Makuza plaza
+    Kigali-Nyarugenge, Nyamirambo
   </a>
     </p>
 
     <p className="flex items-center mt-2 text-gray-300">
       <IoMail className="mr-2 text-green-700" />
       <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juniorally910@gmail.com" className="hover:underline">
-        juniorally910@gmail.com
+        pacifique.rw@gmail.com
       </a>
     </p>
 
     <p className="flex items-center mt-2 text-gray-300">
       <IoCall className="mr-2 text-green-700" />
       <a href="tel:+250785711348" className="hover:underline">
-        +250 785 711 348
+        +250 784008814
       </a>
     </p>
           </div>
@@ -164,7 +162,7 @@ const Footer = () => {
       </a>
         </div>
     
-	   <a href="https://wa.me/+250785934003" target='_blank' >
+	   <a href="https://wa.me/250784008814" target='_blank' >
         <div className="fixed bottom-5 right-5 bg-green-500 text-white p-3 rounded-full cursor-pointer shadow-lg">
           <BsWhatsapp className="text-2xl" />
         </div>

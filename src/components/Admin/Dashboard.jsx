@@ -1,26 +1,35 @@
 import React from "react";
-import Sidebar from "./Sidebar";
-import { Outlet } from "react-router-dom";
-import RequestedProperties from "../Admin/RequestedProperties";
-import SupplyProperty from "../Admin/SupplyProperty";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const handleNavigateToRequestedProperties = () => {
+    navigate("/admin/requested-properties");
+  };
+
+  const handleNavigateToSuppliedProperties = () => {
+    navigate("/admin/supply-properties");
+  };
+
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <Sidebar />
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-6">
+      <h1 className="text-2xl font-bold text-center mb-6">Admin Dashboard</h1>
+      <p className="text-center mb-6">Manage your properties and assets here.</p>
 
-      {/* Main Content */}
-      <div className="flex-1 bg-gray-100 p-6 overflow-y-auto">
-        <Outlet />
-      </div>
-      <div className="flex-1 bg-gray-100 p-6 overflow-y-auto">
-        <h1 className="text-2xl font-bold text-center mt-10">Welcome to the Dashboard</h1>
-        <p className="text-center mt-4">Manage your properties and assets here.</p>
-        <p className="text-center mt-4">Use the sidebar to navigate through different sections.</p>
-
-        <RequestedProperties />
-        <SupplyProperty />
+      <div className="flex space-x-4">
+        <button
+          onClick={handleNavigateToRequestedProperties}
+          className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
+        >
+          Requested Properties
+        </button>
+        <button
+          onClick={handleNavigateToSuppliedProperties}
+          className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition"
+        >
+          Supplied Properties
+        </button>
       </div>
     </div>
   );

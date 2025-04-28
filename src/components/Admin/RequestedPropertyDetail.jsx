@@ -11,11 +11,13 @@ const RequestedPropertyDetail = () => {
   useEffect(() => {
     const fetchPropertyDetails = async () => {
       try {
+        console.log("Fetching property with ID:", id); // Debugging log
         const response = await axios.get(`https://easy-renting-bn.onrender.com/api/request-property/${id}`);
+        console.log("API Response:", response.data); // Debugging log
         setProperty(response.data);
       } catch (err) {
-        console.error("Error fetching property details:", err);
-        setError("Failed to fetch property details. Please try again later.");
+        console.error("Error fetching property details:", err); // Debugging log
+        setError(err.response?.data?.message || "Failed to fetch property details. Please try again later.");
       } finally {
         setLoading(false);
       }

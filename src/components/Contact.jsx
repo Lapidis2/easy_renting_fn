@@ -5,6 +5,7 @@ import instagram from "../../src/assets/instagram.png";
 import linkedin from "../../src/assets/linkedin.png";
 import tiktok from "../../src/assets/ticktock.png";
 import twitter from "../../src/assets/twitter.png";
+import youtube from "../../src/assets/youtube.png";
 import axios from "axios";
 
 const Contact = () => {
@@ -27,7 +28,7 @@ const Contact = () => {
     try {
       const response = await axios.post("http://localhost:3000/api/create-message", formData);
       setResponseMessage(response.data.message);
-      setErrorMessage(""); 
+      setErrorMessage("");
       setFormData({ username: "", email: "", message: "" });
     } catch (error) {
       setErrorMessage(error.response?.data?.message || "Something went wrong");
@@ -47,7 +48,7 @@ const Contact = () => {
             <div>
               <h3 className="font-semibold text-gray-600">Location</h3>
               <p className="text-gray-700">
-              Kigali-Nyarugenge, Nyamirambo
+                Kigali-Nyarugenge, Nyamirambo
               </p>
             </div>
           </div>
@@ -72,11 +73,11 @@ const Contact = () => {
             <a href="https://web.facebook.com/dusabimana.paccy.5" className="hover:text-green-700 gap-2 flex ">
               <img className="h-8 w-8" src={facebook} alt="facebook" /> facebook
             </a>
-            <a href="https://www.linkedin.com/in/pacifique-dusabimana-51a48a350/" className="hover:text-green-700 flex gap-2 ">
-              <img className="h-8 w-8" src={linkedin} alt="linkedin" /> linkedin
-            </a>
             <a href="https://www.instagram.com/pacifique_dusabimana" className="hover:text-green-700 flex gap-2">
               <img className="h-8 w-8" src={instagram} alt="instagram" /> Instagram
+            </a>
+            <a href="https://www.linkedin.com/in/pacifique-dusabimana-51a48a350/" className="hover:text-green-700 flex gap-2 ">
+              <img className="h-8 w-8" src={linkedin} alt="linkedin" /> linkedin
             </a>
             <a href="https://www.tiktok.com/@pacifique.11_d1 " className="hover:text-green-700 flex gap-2">
               <img className="h-10 w-10" src={tiktok} alt="instagram" /> Tiktok
@@ -84,7 +85,13 @@ const Contact = () => {
             <a href="https://www.tiktok.com/@pacifique.11_d1 " className="hover:text-green-700 flex gap-2">
               <img className="h-8" src={twitter} alt="instagram" /> Twitter-X
             </a>
-           
+            <a
+              href="https://www.youtube.com/@pacifiquedusabimana135"
+
+              className="hover:text-green-700 flex gap-2">
+              <img className="h-8" src={youtube} alt="youtube" /> Youtube
+            </a>
+
           </div>
         </div>
       </div>

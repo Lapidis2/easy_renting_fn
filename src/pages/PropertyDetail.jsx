@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FaHome, FaLocationArrow } from "react-icons/fa";
 import axios from "axios";
+import { NavBar } from "../components/NavBar";
+import Footer from "../components/Footer";
 
 const PropertyDetail = () => {
   const { id } = useParams();
@@ -59,6 +61,8 @@ const PropertyDetail = () => {
   };
 
   return (
+    <>
+    <NavBar />
     <div className="container mx-auto p-6 mt-20">
       {/* Breadcrumb Navigation */}
       <div className="flex items-center gap-2 text-gray-600 my-6">
@@ -154,14 +158,17 @@ const PropertyDetail = () => {
             <label htmlFor="message">Message</label>
             <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Hello, I am interested in this property" rows="3" className="p-2 border rounded w-full"></textarea>
           </div>
-          <div className="flex items-center gap-2 my-3">
+          <div className="flex items-center justify-center gap-2 my-3">
             <input type="checkbox" name="agree" checked={formData.agree} onChange={handleChange} />
-            <label className="text-gray-600">I agree to receive emails from <strong>GREAT CONNECTION LTD</strong></label>
+            <label className="text-gray-500">I agree to receive emails from <strong>Great Connection</strong></label>
           </div>
           <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">Request Information</button>
         </form>
       </div>
     </div>
+    <Footer />
+    </>
+    
   );
 };
 

@@ -4,6 +4,7 @@ import { MdCropSquare } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Footer from '../components/Footer';
+import { NavBar } from '../components/NavBar';
 
 const PropertyTypeCards = () => {
   const [properties, setProperties] = useState([]);
@@ -43,15 +44,22 @@ const PropertyTypeCards = () => {
 
   if (properties.length === 0) {
     return (
+      <>
+      <NavBar />
       <div className="text-center py-10 mt-30 text-gray-500">
         <h2 className="capitalize text-2xl text-center font-semibold text-gray-800 mb-4">{displayType} Property</h2>
         No Properties Found For This Type.
-        <Footer />
+        
       </div>
+      <Footer />
+      </>
+      
     );
   }
 
   return (
+    <>
+    <NavBar />
     <div className="mt-30 bg-gray-100">
       <h2 className="text-2xl text-center font-semibold text-gray-800 mb-4">{displayType} Property</h2>
       <div className="property-container flex flex-wrap gap-6 py-6 mx-auto">
@@ -105,6 +113,8 @@ const PropertyTypeCards = () => {
 
       <Footer />
     </div>
+    </>
+    
   );
 };
 

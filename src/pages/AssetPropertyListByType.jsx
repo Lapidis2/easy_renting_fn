@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import { NavBar } from "../components/NavBar";
 
 const GetAssetPropertyByType = () => {
   const { type } = useParams();
@@ -36,6 +37,8 @@ const GetAssetPropertyByType = () => {
   };
 
   return (
+    <>
+    <NavBar />
     <div className="mx-auto mt-30">
       <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
         {displayType} Listings
@@ -89,9 +92,10 @@ const GetAssetPropertyByType = () => {
           ))}
         </div>
       )}
-
-      <Footer />
     </div>
+    <Footer />
+    </>
+    
   );
 };
 

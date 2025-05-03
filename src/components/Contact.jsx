@@ -7,6 +7,7 @@ import tiktok from "../../src/assets/ticktock.png";
 import twitter from "../../src/assets/twitter.png";
 import youtube from "../../src/assets/youtube.png";
 import axios from "axios";
+import { NavBar } from "./NavBar";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -38,6 +39,8 @@ const Contact = () => {
   };
 
   return (
+    <>
+    <NavBar />
     <div className="flex flex-col md:flex-row gap-8 p-6 bg-gray-100 min-h-screen mt-20">
       <div className="md:w-1/3 space-y-6">
         <h1 className="text-2xl font-bold text-gray-800">Get in touch</h1>
@@ -145,6 +148,8 @@ const Contact = () => {
         {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
       </div>
     </div>
+    </>
+    
   );
 };
 

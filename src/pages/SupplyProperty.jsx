@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import SupplyCard from '../components/Admin/SupplyCard';
 import axios from 'axios';
+import { NavBar } from '../components/NavBar';
+import Footer from '../components/Footer';
 
 const SupplyProperty = () => {
   const [properties, setProperties] = useState([]);
@@ -39,6 +41,8 @@ const SupplyProperty = () => {
   }
 
   return (
+    <>
+    <NavBar />
     <div className="container mx-auto mt-40 px-6  mb-6 bg-gray-100">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Supplied  Properties</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -57,6 +61,8 @@ const SupplyProperty = () => {
 		navigate('/create-supply-property')
 	  }} className='rounded-lg text-xl text-white flex items-center bg-green-500 hover:bg-green-600 py-2 px-4 mt-10 lg:w-full min-w-[300px] mx-auto'>Supply Property</button>
     </div>
+    <Footer />
+    </>
   );
 };
 

@@ -15,7 +15,7 @@ function SearchBar({ onSearchResults }) {
   }, [query]);
 
   return (
-    <div className="relative border-2 border-gray-400  py-1 px-2 w-1/2 sm:max-w-1/2 lg:max-w-1/3 mx-auto mx-2 flex justify-center items-center bg-gray-100 rounded-lg shadow-md mx-2 my-4">
+    <div className="relative border-2 border-gray-400  py-1 px-2 w-[320px] sm:max-w-1/2 lg:max-w-1/3 mx-auto  flex justify-center items-center bg-gray-100 rounded-lg shadow-md mx-2 my-4">
       <input
         type="text"
         placeholder="Search properties or assets..."

@@ -1,8 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { NavBar } from './components/NavBar';
-import Footer from './components/Footer';
 import Contact from './components/Contact';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -13,7 +10,7 @@ import ListingDetails from './components/Home/ListingDetails';
 import RequestPropertiesForm from './components/RequestPropertyForm';
 import PropertyTypeCards from './pages/PropertyTypeCards';
 import AssetPropertyListByType from './pages/AssetPropertyListByType'
-
+   
 
 import Dashboard from './components/Admin/Dashboard';
 import SupplyProperty from './components/Admin/SupplyProperty';
@@ -23,10 +20,22 @@ import RequestedProperties from './components/Admin/RequestedProperties';
 import './App.css';
 import AssetDetailPage from './pages/AssetDetail';
 
+//admin-panel imports
+import DashboardPanel from './admin-panel/pages/Dashboard';
+import Properties from './admin-panel/pages/Properties';
+import CreateNewProperty from './admin-panel/pages/CreateNewProperty'
+import Users from './admin-panel/pages/Users';
+import Transactions from './admin-panel/pages/Transactions';
+import Reports from './admin-panel/pages/Reports';
+import Settings from './admin-panel/pages/Settings';
+import Support from './admin-panel/pages/Support';
+import Messages from './admin-panel/pages/Messages';
+import UserProfilePage from './admin-panel/pages/UserProfilePage';
+
 function App() {
   return (
     <Router>
-      <NavBar />
+      {/* <NavBar /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
@@ -47,9 +56,19 @@ function App() {
           <Route path="/requested-property-detail/:id" element={<RequestedPropertyDetail />} />
         
           <Route path="/supply-property-detail/:id" element={<SupplyDetail />} />
-         
           <Route path="/get-properties/type/:type" element={<PropertyTypeCards />} />
-
+          
+          
+      <Route path="/admin-panel" element={<DashboardPanel />} />
+      <Route path="/admin-panel/properties" element={<Properties />} />
+      <Route path="/admin-panel/create-new-property" element={<CreateNewProperty />} />
+      <Route path="/admin-panel/users" element={<Users />} />
+      <Route path="/admin-panel/transactions" element={<Transactions />} />
+      <Route path="/admin-panel/reports" element={<Reports />} />
+      <Route path="/admin-panel/settings" element={<Settings />} />
+      <Route path="/admin-panel/support" element={<Support />} />
+      <Route path="/admin-panel/messages" element={<Messages />} />
+      <Route path="/admin-panel/users/:id" element={<UserProfilePage />} />
           {/* 404 Page Not Found */}
           <Route
             path="*"

@@ -2,7 +2,7 @@ import React from "react";
 import {  useNavigate } from "react-router-dom";
 
 const AssetProperty = ({ assets = []}) => {
-
+   
   if (assets.length === 0) {
     return <div className="text-center py-4 text-gray-500">No Asset Found.</div>;
   }

@@ -66,7 +66,7 @@ const Footer = () => {
             <li>About us</li>
             <li>Terms & condition</li>
             <li>Sell property</li>
-            <li>Buyy property</li>
+            <li>Buy property</li>
           </ul>
         </div>
 
@@ -167,11 +167,15 @@ const Footer = () => {
             <FaLinkedin />
 
           </a>
-          <a href="https://www.tiktok.com/@pacifique.11_d1 " className="hover:text-green-700 flex gap-2 cursor-pointer transition duration-300" rel="noopener noreferrer" target='_blank'>
-
+          <a
+            href="https://www.tiktok.com/@pacifique.11_d1/"
+            className="hover:text-green-700 flex gap-2 cursor-pointer transition duration-300"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             <FaTiktok />
-
           </a>
+
         </div>
 
 

@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FaHome, FaLocationArrow } from "react-icons/fa";
 import axios from "axios";
+import { NavBar } from "../components/NavBar";
+import Footer from "../components/Footer";
 import ContactForm from "../components/RequestInformation";
+
 
 const PropertyDetail = () => {
   const { id } = useParams();
@@ -39,6 +42,8 @@ const PropertyDetail = () => {
   }
 
   return (
+    <>
+    <NavBar />
     <div className="container mx-auto p-6 mt-20">
       {/* Breadcrumb Navigation */}
       <div className="flex items-center gap-2 text-gray-600 my-6">
@@ -102,6 +107,9 @@ const PropertyDetail = () => {
 </div>
 	  <ContactForm endpoint={"https://easy-renting-bn.onrender.com/api/request-inform"}  />
     </div>
+    <Footer />
+    </>
+    
   );
 };
 

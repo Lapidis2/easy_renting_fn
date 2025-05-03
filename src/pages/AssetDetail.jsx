@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link} from "react-router-dom";
 import axios from "axios";
 import { FaHome,FaLocationArrow } from "react-icons/fa";
+import { NavBar } from "../components/NavBar";
 
 const AssetDetailPage = () => {
   const { id } = useParams();
@@ -25,7 +26,9 @@ const AssetDetailPage = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12 mt-20">
+    <>
+    <NavBar />
+    <div className="max-w-4xl mx-auto px-4 py-8 mt-20">
         <h3>Welcome,{asset.type} Details </h3>
         <div className="flex items-center gap-2 text-gray-600 my-6">
                 <FaHome /> <Link to="/" className="text-gray-500 hover:text-blue-300">Home</Link> <span className="text-gray-500 text-xl">/</span> <span className="text-gray-800 hover:text-blue-300">{asset.name}</span>
@@ -106,6 +109,8 @@ const AssetDetailPage = () => {
         </div>
       </div>
     </div>
+    </>
+   
   );
 };
 

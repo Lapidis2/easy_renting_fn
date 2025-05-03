@@ -44,6 +44,9 @@ const SupplyProperty = () => {
     <>
     <NavBar />
     <div className="container mx-auto mt-40 px-6  mb-6 bg-gray-100">
+
+    <div className="container mx-auto mt-40 px-6  mb-6  flex justfyify-center items-center flex-col">
+
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Supplied  Properties</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {properties.map((property) => (
@@ -59,7 +62,7 @@ const SupplyProperty = () => {
 
 	  <button onClick={()=>{
 		navigate('/create-supply-property')
-	  }} className='rounded-lg text-xl text-white flex items-center bg-green-500 hover:bg-green-600 py-2 px-4 mt-10 lg:w-full min-w-[300px] mx-auto'>Supply Property</button>
+	  }} className='rounded-lg text-xl text-white  text-center bg-green-500 hover:bg-green-600 py-2 px-4 mt-10 lg:w-full max-w-[300px] mx-auto'>Supply Property</button>
     </div>
     <Footer />
     </>

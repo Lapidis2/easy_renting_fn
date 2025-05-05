@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import MainLayout from "../components/MainLayout";
 import DashboardWidgets from "../components/DashboardWidgets";
 import QuickActions from "../components/QuickActions";
-import axios from "axios";
+import axiosClient from "../../api/axiosClient";
 import PropertyCard from "../components/PropertyCard";
 
 export default function Dashboard() {
@@ -14,7 +14,7 @@ export default function Dashboard() {
 
   const fetchProperties = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/get-properties");
+      const res = await axiosClient.get("/get-properties");
       setProperties(res.data);
     } catch (err) {
       console.error(err);
@@ -23,12 +23,12 @@ export default function Dashboard() {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this property?")) return;
-    await axios.delete(`http://localhost:3000/api/delete-property/${id}`);
+    await axiosClient.delete(`/delete-property/${id}`);
     fetchProperties();
   };
 
   const handleApprove = async (id) => {
-    await axios.put(`http://localhost:3000/api/update-property/${id}`, {
+    await axiosClient.put(`/update-property/${id}`, {
       status: "Available",
     });
     fetchProperties();

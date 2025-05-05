@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axiosClient from '../../api/axiosClient';
+import Topbar from '../components/Topbar';
 
 export default function UserDetail() {
   const { id } = useParams();
@@ -26,6 +27,9 @@ export default function UserDetail() {
   if (error) return <div className="text-center text-red-500 py-10">{error}</div>;
 
   return (
+    
+    < >
+    <Topbar />
     <div className="max-w-3xl mx-auto mt-32 bg-white shadow-md rounded-lg p-6">
       <h2 className="text-2xl font-semibold mb-4 text-blue-700">User Details</h2>
       <div className="space-y-3 text-gray-800">
@@ -45,5 +49,8 @@ export default function UserDetail() {
         </button>
       </div>
     </div>
+    </>
+    
+
   );
 }

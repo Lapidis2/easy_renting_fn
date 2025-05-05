@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axiosClient from '../../api/axiosClient';
+import Topbar from '../components/Topbar';
 
 export default function UserProfilePage() {
   const { id } = useParams();
@@ -53,6 +54,8 @@ export default function UserProfilePage() {
   if (!user) return <p className="p-4">Loading user profile...</p>;
 
   return (
+    <>
+    <Topbar />
     <div className="p-6 max-w-xl mx-auto bg-white shadow rounded">
       <h2 className="text-2xl font-semibold mb-4">User Profile</h2>
 
@@ -112,5 +115,6 @@ export default function UserProfilePage() {
 </div>
 
     </div>
+    </>
   );
 }

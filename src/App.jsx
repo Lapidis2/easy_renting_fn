@@ -34,6 +34,7 @@ import Settings from './admin-panel/pages/Settings';
 import Support from './admin-panel/pages/Support';
 import Messages from './admin-panel/pages/Messages';
 import UserProfilePage from './admin-panel/pages/UserProfilePage';
+import UserDetail from './admin-panel/pages/UserDetail';
 
 function App() {
   return (
@@ -63,7 +64,7 @@ function App() {
           <Route path="/supply-property-detail/:id" element={<SupplyDetail />} />
           <Route path="/get-properties/type/:type" element={<PropertyTypeCards />} />
           
-          
+      <Route path="/users/:id" element={<UserDetail />} />   
       <Route path="/admin-panel" element={<DashboardPanel />} />
       <Route path="/admin-panel/properties" element={<Properties />} />
       <Route path="/admin-panel/create-new-property" element={<CreateNewProperty />} />

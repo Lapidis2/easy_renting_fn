@@ -16,7 +16,6 @@ export default function UserManagementPanel() {
   useEffect(() => {
     axiosClient.get('/users')
       .then(res => {
-        console.log('Fetched users:', res.data);
         setUsers(res.data);
         setLoading(false);
       })
@@ -31,6 +30,7 @@ export default function UserManagementPanel() {
     axiosClient.put(`/user/${id}/status`)
       .then(res => {
         const updatedStatus = res.data.status;
+        console.log('Updated status:', updatedStatus);
         setUsers(prev =>
           prev.map(user => user.id === id ? { ...user, status: updatedStatus } : user)
         );
@@ -46,11 +46,15 @@ export default function UserManagementPanel() {
     const message = prompt(`Enter message for ${user.username.charAt(0).toUpperCase() + user.username.slice(1).toLowerCase()}:`);
     if (!message) return;
 
-    axiosClient.post(`/message/${user._id}`, { message })
+    axiosClient.post(`/message/${user._id}`,  message )
       .then(res => alert(res.data.message))
       .catch(err => {
         console.error('Failed to send message:', err);
-        alert('Error sending message.');
+        if(user.role != 'admin') {
+          alert('Unauthorized to send message. Only admin.');
+        } else {
+          alert('Error sending message.');
+        }
       });
   };
 
@@ -105,7 +109,7 @@ export default function UserManagementPanel() {
                       className="text-blue-600 hover:text-blue-800 transition"
                       title="View User Details"
                       aria-label="View User"
-                      onClick={() => navigate(`/users/${user.id}`)}
+                      onClick={() => navigate(`/users/${user._id}`)}
                     >
                       <FiEye size={18} />
                     </button>
@@ -125,7 +129,7 @@ export default function UserManagementPanel() {
                       className="text-red-600 hover:text-red-800 transition"
                       title={user.status === 'Active' ? 'Block User' : 'Unblock User'}
                       aria-label="Toggle User Status"
-                      onClick={() => handleToggleStatus(user.id)}
+                      onClick={() => handleToggleStatus(user._id)}
                     >
                       <FiSlash size={18} />
                     </button>

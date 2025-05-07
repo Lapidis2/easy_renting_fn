@@ -65,7 +65,7 @@ function App() {
           <Route path="/get-properties/type/:type" element={<PropertyTypeCards />} />
           
       <Route path="/users/:id" element={<UserDetail />} />   
-      <Route path="/admin-panel" element={<DashboardPanel />} />
+      <Route path="/caleb" element={<DashboardPanel />} />
       <Route path="/admin-panel/properties" element={<Properties />} />
       <Route path="/admin-panel/create-new-property" element={<CreateNewProperty />} />
       <Route path="/admin-panel/users" element={<Users />} />

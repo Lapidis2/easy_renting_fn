@@ -23,18 +23,18 @@ import RequestedProperties from './components/Admin/RequestedProperties';
 import './App.css';
 import AssetDetailPage from './pages/AssetDetail';
 
-//admin-panel imports
-import DashboardPanel from './admin-panel/pages/Dashboard';
-import Properties from './admin-panel/pages/Properties';
-import CreateNewProperty from './admin-panel/pages/CreateNewProperty'
-import Users from './admin-panel/pages/Users';
-import Transactions from './admin-panel/pages/Transactions';
-import Reports from './admin-panel/pages/Reports';
-import Settings from './admin-panel/pages/Settings';
-import Support from './admin-panel/pages/Support';
-import Messages from './admin-panel/pages/Messages';
-import UserProfilePage from './admin-panel/pages/UserProfilePage';
-import UserDetail from './admin-panel/pages/UserDetail';
+// //admin-panel imports
+// import DashboardPanel from './admin-panel/pages/Dashboard';
+// import Properties from './admin-panel/pages/Properties';
+// import CreateNewProperty from './admin-panel/pages/CreateNewProperty'
+// import Users from './admin-panel/pages/Users';
+// import Transactions from './admin-panel/pages/Transactions';
+// import Reports from './admin-panel/pages/Reports';
+// import Settings from './admin-panel/pages/Settings';
+// import Support from './admin-panel/pages/Support';
+// import Messages from './admin-panel/pages/Messages';
+// import UserProfilePage from './admin-panel/pages/UserProfilePage';
+// import UserDetail from './admin-panel/pages/UserDetail';
 
 function App() {
   return (
@@ -64,7 +64,7 @@ function App() {
           <Route path="/supply-property-detail/:id" element={<SupplyDetail />} />
           <Route path="/get-properties/type/:type" element={<PropertyTypeCards />} />
           
-      <Route path="/users/:id" element={<UserDetail />} />   
+      {/* <Route path="/users/:id" element={<UserDetail />} />   
       <Route path="/caleb" element={<DashboardPanel />} />
       <Route path="/admin-panel/properties" element={<Properties />} />
       <Route path="/admin-panel/create-new-property" element={<CreateNewProperty />} />
@@ -74,7 +74,7 @@ function App() {
       <Route path="/admin-panel/settings" element={<Settings />} />
       <Route path="/admin-panel/support" element={<Support />} />
       <Route path="/admin-panel/messages" element={<Messages />} />
-      <Route path="/admin-panel/users/:id" element={<UserProfilePage />} />
+      <Route path="/admin-panel/users/:id" element={<UserProfilePage />} /> */}
           {/* 404 Page Not Found */}
           <Route
             path="*"

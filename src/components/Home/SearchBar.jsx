@@ -8,6 +8,7 @@ function SearchBar({ onSearchResults }) {
     const fetchResults = async () => {
       const res = await fetch(`https://easy-renting-bn.onrender.com/api/search?q=${encodeURIComponent(query)}`);
       const data = await res.json();
+      console.log("seached data : ",data); // Log the data for debugging
       onSearchResults(data); // Pass data to parent
     };
 

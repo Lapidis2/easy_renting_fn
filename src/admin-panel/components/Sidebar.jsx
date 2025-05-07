@@ -1,29 +1,23 @@
 // src/admin-panel/components/Sidebar.jsx
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-  FiHome, FiUsers, FiFileText, FiSettings, FiMessageCircle
-} from 'react-icons/fi';
-
+import {FiHome, FiUsers, FiFileText, FiSettings, FiMessageCircle} from 'react-icons/fi';
 const navItems = [
-  { name: 'Dashboard', icon: <FiHome />, path: '/admin-panel' },
+  { name: 'Dashboard', icon: <FiHome />, path: '/caleb' },
   { name: 'Properties', icon: <FiFileText />, path: '/admin-panel/properties' },
   { name: 'Users', icon: <FiUsers />, path: '/admin-panel/users' },
   { name: 'Messages', icon: <FiMessageCircle />, path: '/admin-panel/messages' },
   { name: 'Settings', icon: <FiSettings />, path: '/admin-panel/settings' },
 ];
-
 export default function Sidebar({ isOpen, toggle }) {
   return (
     <>
-      {/* Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden"
           onClick={toggle}
         />
       )}
-
       <div
         className={`fixed md:static top-0 left-0 h-full w-64 bg-blue-900 text-white p-4 z-50 transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'

@@ -1,6 +1,6 @@
 // src/components/FAQSection.jsx
 import React, { useState, useEffect } from 'react';
-import axiosClient from '../api/axiosClient';
+import axiosClient from '../../api/axiosClient';
 
 export default function FAQSection() {
   const [faqs, setFaqs] = useState([]);

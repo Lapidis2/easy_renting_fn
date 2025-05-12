@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FaHome, FaLocationArrow } from "react-icons/fa";
 import axios from "axios";
-import ContactForm from "../RequestInformation";
+import RequestContactInform from "../components/RequestInformation";
+import UserNavbar from "../components/UserNavbar";
 
 const SupplyDetail = () => {
   const { id } = useParams();
@@ -29,6 +30,8 @@ const SupplyDetail = () => {
   }
 
   return (
+    <>
+    <UserNavbar />
     <div className="container mx-auto p-6 mt-20">
       {/* Breadcrumb Navigation */}
       <div className="flex items-center gap-2 text-gray-600 my-6">
@@ -108,8 +111,9 @@ const SupplyDetail = () => {
         </div>
       </div>
 
-	  <ContactForm  endpoint={"https://easy-renting-bn.onrender.com/api/request-inform"}/>
+	  <RequestContactInform  endpoint={"https://easy-renting-bn.onrender.com/api/request-inform"}/>
     </div>
+    </>
   );
 };
 

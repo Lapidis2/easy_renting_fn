@@ -2,17 +2,18 @@
 import React, { useState } from 'react';
 import { FiUser, FiLogOut, FiMenu } from 'react-icons/fi';
 import axios from 'axios';
+import { getUser } from '../../utils/UserStorage';
 
 export default function Topbar({ onToggleSidebar }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
-
+      confirm('Are you sure you want to logout?', user.username);
       await axios.post('http://localhost:3000/api/logout'); 
 
-      localStorage.removeItem('token'); // Remove token from local storage
-      localStorage.removeItem('user'); // Remove user data from local storage
+      localStorage.removeItem('token');
+      localStorage.removeItem('user'); 
       alert('Logged out successfully');
       window.location.href = '/login'; 
     } catch (err) {
@@ -20,7 +21,8 @@ export default function Topbar({ onToggleSidebar }) {
       alert('Logout failed, please try again!');
     }
   };
-
+  
+  const user = getUser(); 
   return (
     <div className="flex justify-between items-center p-4 bg-white shadow-md sticky top-0 z-10">
       <button
@@ -39,7 +41,7 @@ export default function Topbar({ onToggleSidebar }) {
           className="flex items-center flex-col gap-1"
         >
           <img src="/avatar.png" alt="User" className="w-8 h-8 rounded-full" />
-          <span className="font-medium text-sm text-gray-500">Admin</span>
+          <span className="font-medium text-sm text-gray-500">{ user.username || "Admin"}</span>
         </button>
 
         {dropdownOpen && (

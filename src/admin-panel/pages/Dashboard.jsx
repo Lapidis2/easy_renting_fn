@@ -5,13 +5,16 @@ import DashboardWidgets from "../components/DashboardWidgets";
 import QuickActions from "../components/QuickActions";
 import axiosClient from "../../api/axiosClient";
 import PropertyCard from "../components/PropertyCard";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const [properties, setProperties] = useState([]);
-  const [viewingProperty, setViewingProperty] = useState(null);
+  const [viewingProperty, setViewingProperty] = useState(false);
+  const [editingProperty, setEditingProperty] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 6;
-
+ const navigate = useNavigate();
+ 
   const fetchProperties = async () => {
     try {
       const res = await axiosClient.get("/get-properties");
@@ -40,9 +43,24 @@ const handleDelete = async (id) => {
   }
 };
 
-  const handleEdit = (property) => setEditingProperty(property);
-  const handleView = (property) => setViewingProperty(property);
 
+  const handleEdit = (property) => {
+    if (editingProperty) {
+      alert("You are already In Editing a property. Please close the current one before editing another.");
+      return;
+    }
+    navigate(`/admin-panel/edit-property/${property._id}`);
+    setEditingProperty(true);
+  }
+
+  const handleView = (property) =>{
+    if (viewingProperty) {
+      alert("You are already viewing a property. Please close the current one before viewing another.");
+      return;
+    }
+  navigate(`/admin-panel/property/${property._id}`);
+  setViewingProperty(true);
+  }
   const indexOfLast = currentPage * propertiesPerPage;
   const indexOfFirst = indexOfLast - propertiesPerPage;
   const currentProperties = properties.slice(indexOfFirst, indexOfLast);

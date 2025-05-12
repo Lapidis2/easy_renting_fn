@@ -28,7 +28,7 @@ export default function PropertyForm({ onCreated }) {
 
     try {
       await axios.post('/create-property', data);
-      onCreated(); // callback to refresh property list
+      onCreated(); 
     } catch (err) {
       console.error(err);
     }
@@ -60,7 +60,7 @@ export default function PropertyForm({ onCreated }) {
       </select>
       <input type="file" onChange={e => setImage(e.target.files[0])} className="w-full p-2 border rounded" required />
       <input name="features" value={formData.features} onChange={handleChange} placeholder="Features (comma-separated)" className="w-full p-2 border rounded" required />
-      <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded">Submit</button>
+      <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded">Add Property</button>
     </form>
   );
 }

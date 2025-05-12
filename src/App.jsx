@@ -35,6 +35,11 @@ import RequestProperty from './admin-panel/pages/RequestedProperties';
 import RequestPropertyDetail from './admin-panel/pages/RequestedPropertyDetail';
 import SuppliedProperty from './admin-panel/pages/SupplyProperty';
 import SuppliedPropertyDetail from './admin-panel/pages/SupplyDetail';
+import AdminPropertyDetail from './admin-panel/pages/PropertiesDetail';
+import EditProperty from './admin-panel/pages/EditProperty';
+
+//protected route imports
+import ProtectedRoute from './config/ProtectedRoute';
 
 function App() {
   return (
@@ -59,10 +64,14 @@ function App() {
 
         <Route path="/supply-property-detail/:id" element={<SupplyDetail />} />
         <Route path="/get-properties/type/:type" element={<PropertyTypeCards />} />
-
+        
+        {/* protected routes for only admin*/}
+      <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
         <Route path="/users/:id" element={<UserDetail />} />
         <Route path="/admin-panel" element={<DashboardPanel />} />
+        <Route path='admin-panel/property/:id' element={<AdminPropertyDetail />} />
         <Route path="/admin-panel/properties" element={<Properties />} />
+        <Route path='/admin-panel/edit-property/:id' element={<EditProperty/>} />
         <Route path="/admin-panel/create-new-property" element={<CreateNewProperty />} />
         <Route path="/admin-panel/users" element={<Users />} />
         <Route path="/admin-panel/transactions" element={<Transactions />} />
@@ -75,6 +84,7 @@ function App() {
         <Route path="/admin-panel/requested-property/:id" element={<RequestPropertyDetail />} />
         <Route path="/admin-panel/requested-property" element={<RequestProperty />} />
         <Route path="/admin-panel/supplied-property" element={<SuppliedProperty />} />
+      </Route>
         {/* 404 Page Not Found */}
         <Route
           path="*"

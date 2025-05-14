@@ -37,7 +37,8 @@ import SuppliedProperty from './admin-panel/pages/SupplyProperty';
 import SuppliedPropertyDetail from './admin-panel/pages/SupplyDetail';
 import AdminPropertyDetail from './admin-panel/pages/PropertiesDetail';
 import EditProperty from './admin-panel/pages/EditProperty';
-
+import ResetPassword from './pages/ResetPassword';
+import RequestPasswordReset from './components/RequestPasswordReset';
 //protected route imports
 import ProtectedRoute from './config/ProtectedRoute';
 
@@ -60,6 +61,8 @@ function App() {
         <Route path="/requested-property-detail/:id" element={<PropertyRequestedDetail />} />
         <Route path="/property-requested" element={<PropertyRequested />} />
         <Route path="/supplied-property" element={<PropertySupplied />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+         <Route path="/forgot-password" element={<RequestPasswordReset />} />
 
 
         <Route path="/supply-property-detail/:id" element={<SupplyDetail />} />
@@ -67,7 +70,7 @@ function App() {
         
         {/* protected routes for only admin*/}
       <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-        <Route path="/users/:id" element={<UserDetail />} />
+        <Route path="/admin-panel/users/:id" element={<UserDetail />} />
         <Route path="/admin-panel" element={<DashboardPanel />} />
         <Route path='admin-panel/property/:id' element={<AdminPropertyDetail />} />
         <Route path="/admin-panel/properties" element={<Properties />} />

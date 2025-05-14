@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { FaHome, FaLocationArrow } from "react-icons/fa";
-import axios from "axios";
+import { useParams } from "react-router-dom";
+import { FaLocationArrow } from "react-icons/fa";
+import axiosClient from "../../api/axiosClient";
 import MainLayout from "../components/MainLayout";
 
 const PropertyDetail = () => {
@@ -13,7 +13,7 @@ const PropertyDetail = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const response = await axios.get(`https://easy-renting-bn.onrender.com/api/get-property/${id}`);
+        const response = await axiosClient.get(`/get-property/${id}`);
         const data = response.data.property;
         setProperty(data); 
       } catch (err) {

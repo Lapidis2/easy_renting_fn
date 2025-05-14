@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axiosClient from '../../api/axiosClient';
 import Topbar from '../components/Topbar';
+import UpdateUserRole from '../components/UpdateUserRole';
 
 export default function UserDetail() {
   const { id } = useParams();
@@ -13,7 +14,8 @@ export default function UserDetail() {
   useEffect(() => {
     axiosClient.get(`/user/${id}`)
       .then(res => {
-        setUser(res.data);
+        setUser(res.data.user);
+        console.log('user data',res.data);
         setLoading(false);
       })
       .catch(err => {
@@ -30,7 +32,7 @@ export default function UserDetail() {
     
     < >
     <Topbar />
-    <div className="max-w-3xl mx-auto mt-32 bg-white shadow-md rounded-lg p-6">
+    <div className="max-w-3xl mx-auto mt-4 bg-white shadow-md rounded-lg p-6">
       <h2 className="text-2xl font-semibold mb-4 text-blue-700">User Details</h2>
       <div className="space-y-3 text-gray-800">
         <p><strong>Username:</strong> {user.username}</p>
@@ -39,7 +41,9 @@ export default function UserDetail() {
         <p><strong>Status:</strong> <span className={`font-semibold ${user.status === 'Active' ? 'text-green-600' : 'text-red-600'}`}>{user.status}</span></p>
         <p><strong>Joined:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
       </div>
-
+       <div className='update-user-role my-4'>
+        <UpdateUserRole user={user} />
+       </div>
       <div className="mt-6">
         <button 
           onClick={() => navigate(-1)} 

@@ -1,184 +1,145 @@
-import React, { useState, useEffect } from 'react';
-import axios from '../../api/axiosClient';
-import { useParams, useNavigate } from 'react-router-dom';
-import MainLayout from '../components/MainLayout';
+import React, { useEffect, useState } from "react";
+import axiosClient from "../../api/axiosClient";
+import { useParams, useNavigate } from "react-router-dom";
+import MainLayout from "../components/MainLayout";
 
-const EditProperty = () => {
+const UpdateProperty = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    title: '',
-    status: '',
-    location: '',
-    image: null,
-    description: '',
-    price: '',
-    owner: '',
-    contact: '',
-    bedrooms: '',
-    bathrooms: '',
-    toilets: '',
-    area: '',
-    type: '',
-    features: '',
-    existingImage: ''
+    title: "",
+    type: "House",
+    location: "",
+    bedrooms: "",
+    bathrooms: "",
+    toilets: "",
+    area: "",
+    status: "Rent",
+    owner: "",
+    contact: "",
+    image: "",
+    description: "",
+    price: "",
+    features: [],
   });
-  const [previewImage, setPreviewImage] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchProperty = async () => {
-      try {
-        const res = await axios.get(`/get-property/${id}`);
-        const {
-          title,
-          status,
-          location,
-          description,
-          price,
-          owner,
-          contact,
-          bedrooms,
-          bathrooms,
-          toilets,
-          area,
-          type,
-          features,
-          imageUrl
-        } = res.data.property;
-        console.log('Fetched property:', res.data.property);
-        setFormData({
-          title,
-          status,
-          location,
-          image: null,
-          description,
-          price,
-          owner,
-          contact,
-          bedrooms,
-          bathrooms,
-          toilets,
-          area,
-          type,
-          features: features.join(', '),
-          existingImage: imageUrl || ''
-        });
-        setPreviewImage(imageUrl || null);
-      } catch (error) {
-        console.error('Failed to fetch property:', error);
-      }
-    };
-    fetchProperty();
+    axiosClient.get(`/get-property/${id}`)
+      .then(res => setFormData(res.data.property))
+      .catch(err => console.error("Error fetching property:", err));
   }, [id]);
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'image') {
-      const file = files[0];
-      setFormData({ ...formData, image: file });
-      setPreviewImage(URL.createObjectURL(file));
+    const { name, value, type } = e.target;
+    if (name === "features") {
+      setFormData(prev => ({
+        ...prev,
+        features: value.split(",").map(f => f.trim())
+      }));
     } else {
-      setFormData({ ...formData, [name]: value });
+      setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    const updatedData = new FormData();
-
-    Object.keys(formData).forEach((key) => {
-      if (key === 'features') {
-        updatedData.append(key, JSON.stringify(formData.features.split(',').map(f => f.trim())));
-      } else if (key === 'image' && formData[key]) {
-        updatedData.append(key, formData[key]);
-      } else if (key !== 'existingImage') {
-        updatedData.append(key, formData[key]);
-      }
-    });
-
     try {
-      await axios.put(`/update-property/${id}`, updatedData);
-      navigate('/admin-panel');
-    } catch (error) {
-      console.error('Failed to update property:', error);
-    } finally {
-      setLoading(false);
+      await axiosClient.put(`/update-property/${id}`, formData);
+      alert("Property updated successfully!");
+      navigate("/admin-panel"); // or wherever you want
+    } catch (err) {
+      console.error("Error updating property:", err);
+      alert("Failed to update property.");
     }
   };
 
   return (
-   <MainLayout>
-    <div className="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-md">
-      <h2 className="text-2xl font-semibold mb-4">Edit Property</h2>
-      <form onSubmit={handleSubmit}>
-        {['title', 'status', 'location', 'price', 'owner', 'contact', 'bedrooms', 'bathrooms', 'toilets', 'area', 'type'].map((field) => (
-          <div className="mb-4" key={field}>
-            <label className="block text-sm font-medium text-gray-700 capitalize">{field}</label>
+    <MainLayout>
+       <div style={{ padding: "2rem", maxWidth: "700px", margin: "auto" }}>
+      <h2 style={{ fontSize: "1.5rem", marginBottom: "1rem", fontWeight: "bold" }}>Update Property</h2>
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+
+        {[
+          { label: "Title", name: "title" },
+          { label: "Location", name: "location" },
+          { label: "Bedrooms", name: "bedrooms", type: "number" },
+          { label: "Bathrooms", name: "bathrooms", type: "number" },
+          { label: "Toilets", name: "toilets", type: "number" },
+          { label: "Area", name: "area" },
+          { label: "Owner", name: "owner" },
+          { label: "Contact", name: "contact" },
+          { label: "Image URL", name: "image" },
+          { label: "Description", name: "description" },
+          { label: "Price", name: "price" },
+          { label: "Features (comma separated)", name: "features" },
+        ].map(({ label, name, type = "text" }) => (
+          <div key={name}>
+            <label style={{ fontWeight: "500" }}>{label}</label>
             <input
-              type={['price', 'bedrooms', 'bathrooms', 'toilets'].includes(field) ? 'number' : 'text'}
-              name={field}
-              value={formData[field]}
+              type={type}
+              name={name}
+              value={formData[name] || ""}
               onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
+              style={{
+                width: "100%",
+                padding: "0.5rem",
+                border: "1px solid #ccc",
+                borderRadius: "0.375rem",
+                marginTop: "0.25rem"
+              }}
             />
           </div>
         ))}
 
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Description</label>
-          <textarea
-            name="description"
-            value={formData.description}
+        {/* Dropdowns */}
+        <div>
+          <label>Status</label>
+          <select
+            name="status"
+            value={formData.status}
             onChange={handleChange}
-            rows="4"
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-          ></textarea>
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Features (comma-separated)</label>
-          <input
-            type="text"
-            name="features"
-            value={formData.features}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Image</label>
-          <input
-            type="file"
-            name="image"
-            onChange={handleChange}
-            className="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-md"
-          />
-          {previewImage && (
-            <img
-              src={previewImage}
-              alt="Preview"
-              className="mt-2 w-full h-64 object-cover rounded-md"
-            />
-          )}
-        </div>
-
-        <div className="mb-4">
-          <button
-            type="submit"
-            className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700"
-            disabled={loading}
+            style={{ padding: "0.5rem", border: "1px solid #ccc", borderRadius: "0.375rem" }}
           >
-            {loading ? 'Saving...' : 'Save Changes'}
-          </button>
+            <option value="Available">Available</option>
+            <option value="Rent">Rent</option>
+            <option value="Sale">Sale</option>
+            <option value="Pending">Pending</option>
+          </select>
         </div>
+
+        <div>
+          <label>Type</label>
+          <select
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+            style={{ padding: "0.5rem", border: "1px solid #ccc", borderRadius: "0.375rem" }}
+          >
+            <option value="House">House</option>
+            <option value="Apartment">Apartment</option>
+            <option value="Hotel">Hotel</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          style={{
+            backgroundColor: "#2563eb",
+            color: "white",
+            padding: "0.75rem",
+            borderRadius: "0.375rem",
+            fontWeight: "bold",
+            cursor: "pointer"
+          }}
+        >
+          Update Property
+        </button>
       </form>
     </div>
-   </MainLayout>
+    </MainLayout>
+    
   );
 };
 
-export default EditProperty;
+export default UpdateProperty;

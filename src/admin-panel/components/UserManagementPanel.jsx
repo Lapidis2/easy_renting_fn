@@ -46,7 +46,7 @@ export default function UserManagementPanel() {
     const message = prompt(`Enter message for ${user.username.charAt(0).toUpperCase() + user.username.slice(1).toLowerCase()}:`);
     if (!message) return;
 
-    axiosClient.post(`/message/${user._id}`,  message )
+    axiosClient.post(`/message-to-user/${user._id}`,  message )
       .then(res => alert(res.data.message))
       .catch(err => {
         console.error('Failed to send message:', err);
@@ -109,7 +109,7 @@ export default function UserManagementPanel() {
                       className="text-blue-600 hover:text-blue-800 transition"
                       title="View User Details"
                       aria-label="View User"
-                      onClick={() => navigate(`/users/${user._id}`)}
+                      onClick={() => navigate(`/admin-panel/users/${user._id}`)}
                     >
                       <FiEye size={18} />
                     </button>

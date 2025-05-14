@@ -1,337 +1,221 @@
-import React, { useState, useEffect } from "react";
-import axiosClient from "../../api/axiosClient";
+import React, { useState } from 'react';
+import axios from 'axios';
 
-export default function PropertyForm({ onCreated, editingProperty }) {
+const PropertyForm = () => {
   const [formData, setFormData] = useState({
-    title: "",
-    status: "Rent",
-    location: "",
-    description: "",
-    price: "",
-    owner: "",
-    contact: "",
-    bedrooms: 1,
-    bathrooms: 1,
-    toilets: 1,
-    area: "",
-    type: "House",
+    title: '',
+    type: 'Apartment',
+    location: '',
+    bedrooms: '',
+    bathrooms: '',
+    area: '',
+    status: 'Available',
+    owner: '',
+    contact: '',
+    description: '',
+    price: '',
+    toilets: '',
     features: [],
-    image: null,
   });
+   const [loading, setLoading] = useState(false);
 
-  const [newFeature, setNewFeature] = useState("");
-
-  useEffect(() => {
-    if (editingProperty) {
-      setFormData({ ...editingProperty, image: null });
-    }
-  }, [editingProperty]);
+  const [image, setImage] = useState(null);
+  const [newFeature, setNewFeature] = useState('');
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: ["bedrooms", "bathrooms", "toilets"].includes(name)
-        ? parseInt(value)
-        : value,
-    }));
-  };
-
-  const handleImageChange = (e) => {
-    setFormData({ ...formData, image: e.target.files[0] });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleAddFeature = () => {
-    if (newFeature.trim() !== "") {
-      setFormData((prev) => ({
-        ...prev,
-        features: [...prev.features, newFeature.trim()],
-      }));
-      setNewFeature("");
+    if (newFeature.trim()) {
+      setFormData({
+        ...formData,
+        features: [...formData.features, newFeature.trim()]
+      });
+      setNewFeature('');
     }
   };
 
-  const handleRemoveFeature = (index) => {
-    setFormData((prev) => ({
-      ...prev,
-      features: prev.features.filter((_, i) => i !== index),
-    }));
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = new FormData();
 
+    const data = new FormData();
     for (let key in formData) {
-      if (formData[key] !== null) {
-        if (Array.isArray(formData[key])) {
-          formData[key].forEach((val) => payload.append(key, val));
-        } else {
-          payload.append(key, formData[key]);
-        }
+      if (key !== 'features') {
+        data.append(key, formData[key]);
       }
     }
+    formData.features.forEach(feature => data.append('features', feature));
+    data.append('image', image);
 
     try {
-      if (editingProperty) {
-        await axiosClient.put(
-          `/update-property/${editingProperty._id}`,payload);
-      } else {
-        await axiosClient.post( "/create-property",payload );
-      }
-
-      onCreated();
-      setFormData({
-        title: "",
-        status: "Rent",
-        location: "",
-        description: "",
-        price: "",
-        owner: "",
-        contact: "",
-        bedrooms: 1,
-        bathrooms: 1,
-        toilets: 1,
-        area: "",
-        type: "House",
-        features: [],
-        image: null,
-      });
-      setNewFeature("");
+      setLoading(true);
+ await axios.post('https://easy-renting-bn.onrender.com/api/create-property',
+        data
+      );
+      alert('Property added successfully!');
     } catch (err) {
-      console.error("Error submitting property:", err);
+      console.error(err);
+      alert('Failed to add property.');
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white shadow-lg rounded-lg p-6 grid grid-cols-1 md:grid-cols-2 gap-4 w-full"
-    >
-      <h2 className="text-2xl font-bold col-span-full mb-2 text-center">
-        {editingProperty ? "Update Property" : "Add New Property"}
-      </h2>
+    <div className="max-w-4xl mx-auto p-6 bg-white rounded-2xl shadow-lg mt-8">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Add New Property</h2>
 
-      <div className="mb-4 w-full">
-        <label htmlFor="title" className="block font-medium mb-1">Property Title</label>
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+      >
         <input
-          id="title"
           name="title"
-          value={formData.title}
-          onChange={handleChange}
-          placeholder="Enter the title of the property (e.g. Cozy 2-Bedroom House)"
-          className="border border-gray-300 p-2 rounded w-full"
+          placeholder="Title"
           required
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-      </div>
-
-      <div className="mb-4 w-full">
-        <label htmlFor="status" className="block font-medium mb-1">Property Status</label>
         <select
-          id="status"
+          name="type"
+          required
+          value={formData.type}
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option>House</option>
+          <option>Apartment</option>
+          <option>Hotel</option>
+        </select>
+
+        <input
+          name="location"
+          placeholder="Location"
+          required
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          name="bedrooms"
+          type="number"
+          placeholder="Bedrooms"
+          required
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          name="bathrooms"
+          type="number"
+          placeholder="Bathrooms"
+          required
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          name="toilets"
+          type="number"
+          placeholder="Toilets"
+          required
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          name="area"
+          placeholder="Area (e.g. 250 spm)"
+          required
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <select
           name="status"
+          required
           value={formData.status}
           onChange={handleChange}
-          className="border border-gray-300 p-2 rounded w-full"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option>Available</option>
           <option>Rent</option>
           <option>Sale</option>
           <option>Pending</option>
         </select>
-      </div>
 
-      <div className="mb-4 w-full">
-        <label htmlFor="location" className="block font-medium mb-1">Location</label>
         <input
-          id="location"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          placeholder="Enter the location (e.g. Downtown, New York)"
-          className="border border-gray-300 p-2 rounded w-full"
-          required
-        />
-      </div>
-
-      <div className="mb-4 w-full">
-        <label htmlFor="area" className="block font-medium mb-1">Area (e.g. 120sqm)</label>
-        <input
-          id="area"
-          name="area"
-          value={formData.area}
-          onChange={handleChange}
-          placeholder="Enter the area of the property"
-          className="border border-gray-300 p-2 rounded w-full"
-          required
-        />
-      </div>
-
-      <div className="mb-4 w-full">
-        <label htmlFor="bedrooms" className="block font-medium mb-1">Number of Bedrooms</label>
-        <input
-          id="bedrooms"
-          name="bedrooms"
-          type="number"
-          value={formData.bedrooms}
-          onChange={handleChange}
-          placeholder="Enter number of bedrooms"
-          className="border border-gray-300 p-2 rounded w-full"
-          required
-        />
-      </div>
-
-      <div className="mb-4 w-full">
-        <label htmlFor="bathrooms" className="block font-medium mb-1">Number of Bathrooms</label>
-        <input
-          id="bathrooms"
-          name="bathrooms"
-          type="number"
-          value={formData.bathrooms}
-          onChange={handleChange}
-          placeholder="Enter number of bathrooms"
-          className="border border-gray-300 p-2 rounded w-full"
-          required
-        />
-      </div>
-
-      <div className="mb-4 w-full">
-        <label htmlFor="toilets" className="block font-medium mb-1">Number of Toilets</label>
-        <input
-          id="toilets"
-          name="toilets"
-          type="number"
-          value={formData.toilets}
-          onChange={handleChange}
-          placeholder="Enter number of toilets"
-          className="border border-gray-300 p-2 rounded w-full"
-          required
-        />
-      </div>
-
-      <div className="mb-4 w-full">
-        <label htmlFor="price" className="block font-medium mb-1">Price</label>
-        <input
-          id="price"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-          placeholder="Enter the price (e.g. 500 USD)"
-          className="border border-gray-300 p-2 rounded w-full"
-          required
-        />
-      </div>
-
-      <div className="mb-4 w-full">
-        <label htmlFor="owner" className="block font-medium mb-1">Owner Name</label>
-        <input
-          id="owner"
           name="owner"
-          value={formData.owner}
-          onChange={handleChange}
-          placeholder="Enter the owner's name"
-          className="border border-gray-300 p-2 rounded w-full"
+          placeholder="Owner Name"
           required
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-      </div>
-
-      <div className="mb-4 w-full">
-        <label htmlFor="contact" className="block font-medium mb-1">Contact Information</label>
         <input
-          id="contact"
           name="contact"
-          value={formData.contact}
-          onChange={handleChange}
-          placeholder="Enter contact information (e.g. phone or email)"
-          className="border border-gray-300 p-2 rounded w-full"
+          placeholder="Contact (e.g. 0788xxxxxx)"
           required
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-      </div>
-
-      <div className="mb-4 w-full">
-        <label htmlFor="type" className="block font-medium mb-1">Property Type</label>
-        <select
-          id="type"
-          name="type"
-          value={formData.type}
-          onChange={handleChange}
-          className="border border-gray-300 p-2 rounded w-full"
-        >
-          <option>House</option>
-          <option>Apartment</option>
-          <option>Hotel</option>
-        </select>
-      </div>
-
-      {/* Features section */}
-      <div className="col-span-full mb-4 w-full">
-        <label htmlFor="features" className="block font-medium mb-1">Features</label>
-        <div className="flex gap-2 mb-2">
-          <input
-            id="features"
-            type="text"
-            value={newFeature}
-            onChange={(e) => setNewFeature(e.target.value)}
-            placeholder="Add a feature (e.g. Swimming Pool)"
-            className="flex-grow border border-gray-300 p-2 rounded"
-          />
-          <button
-            type="button"
-            onClick={handleAddFeature}
-            className="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700"
-          >
-            Add
-          </button>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {formData.features.map((feature, idx) => (
-            <span
-              key={idx}
-              className="bg-gray-200 px-3 py-1 rounded-full flex items-center gap-2"
-            >
-              {feature}
-              <button
-                type="button"
-                onClick={() => handleRemoveFeature(idx)}
-                className="text-red-600 hover:text-red-800"
-              >
-                ×
-              </button>
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <div className="mb-4 w-full">
-        <label htmlFor="description" className="block font-medium mb-1">Property Description</label>
-        <textarea
-          id="description"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          placeholder="Describe the property and its features"
-          className="border border-gray-300 p-2 rounded w-full"
+        <input
+          name="price"
+          type="number"
+          placeholder="Price"
           required
-          rows="4"
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-      </div>
-
-      <div className="mb-4 w-full">
-        <label htmlFor="image" className="block font-medium mb-1">Upload Property Image</label>
         <input
           type="file"
-          id="image"
           onChange={handleImageChange}
-          className="border border-gray-300 p-2 rounded w-full"
+          required
+          className="w-full px-4 py-2 border border-gray-300 rounded-md"
         />
-      </div>
 
-      <button
-        type="submit"
-        className="col-span-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition mt-4"
-      >
-        {editingProperty ? "Update Property" : "Create Property"}
-      </button>
-    </form>
+        <textarea
+          name="description"
+          placeholder="Description"
+          rows="3"
+          required
+          onChange={handleChange}
+          className="md:col-span-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        {/* Features Input */}
+        <div className="md:col-span-2">
+          <div className="flex gap-2 mb-2">
+            <input
+              type="text"
+              value={newFeature}
+              onChange={(e) => setNewFeature(e.target.value)}
+              placeholder="Add a feature"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              type="button"
+              onClick={handleAddFeature}
+              className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
+            >
+              Add
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {formData.features.map((feature, index) => (
+              <span
+                key={index}
+                className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm"
+              >
+                {feature}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <button type='submit' disabled={loading} className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+          {loading ? "Submitting..." : "Create Property"}
+        </button>
+      </form>
+    </div>
   );
-}
+};
+
+export default PropertyForm;

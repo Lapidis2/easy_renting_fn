@@ -5,7 +5,6 @@ import MainLayout from "../../admin-panel/components/MainLayout";
 import PropertyForm from "../../admin-panel/components/PropertyForm";
 
 export default function Dashboard() {
-  const [editingProperty, setEditingProperty] = useState(null);
     const [ResponseMessage, setResponseMessage] = useState(null);
   const handleFormSubmit = () => {
     setEditingProperty(null);
@@ -21,7 +20,7 @@ export default function Dashboard() {
         <p className="text-gray-600 mb-4">Fill in the details below to create a new property listing.</p>
       {/* Property Form */}
       <div className="my-6">
-        <PropertyForm onCreated={handleFormSubmit} editingProperty={editingProperty} />
+        <PropertyForm onCreated={handleFormSubmit}  />
 
         <p className="sucees-message mt-4 text-green-600 text-center">{ResponseMessage}</p>
       </div>

@@ -139,6 +139,12 @@ const Login = () => {
         </form>
       <div className="mt-4 text-center">
         <p className="text-sm text-gray-600">
+        
+          <a href="/forgot-password" className="text-green-500 hover:text-blue-600 hover:underline font-semibold py-2">
+              Forgot your password.
+          </a>
+        </p>
+        <p className="text-sm text-gray-600">
           Don't have an account?{' '}
           <a href="/register" className="text-green-500 hover:text-green-700 font-semibold">
             Register here

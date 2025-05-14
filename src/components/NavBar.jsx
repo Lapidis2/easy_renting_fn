@@ -105,13 +105,11 @@ export const NavBar = () => {
 								</div>
 							)}
 						</div>
-
-						
 						<Link to="/login" className="p-3  hover:text-green-800" onClick={() => setIsOpen(false)}>Request Property</Link>
 						<Link to="/login" className="p-3  hover:text-green-800" onClick={() => setIsOpen(false)}>Supply Property</Link>
-						<Link to="/contact" className="p-3 hover:text-green-800" onClick={() => setIsOpen(false)}>
-							Contact
-						</Link>
+						<Link to="/contact" className="p-3 hover:text-green-800" onClick={() => setIsOpen(false)}>Contact</Link>
+						<Link to="/login" className="p-3 hover:text-green-800 " onClick={() => setIsOpen(false)}>Login</Link>
+					<Link to="/register" className="p-3 hover:text-green-800 " onClick={() => setIsOpen(false)}>Register</Link>
 					</nav>
 				</div>
 			)}

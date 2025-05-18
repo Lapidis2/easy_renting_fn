@@ -15,7 +15,13 @@ export default function ResetPassword() {
       const res = await axiosClient.post(`/reset-password/${token}`, { password });
       setMessage(res.data.message);
       setSuccess(true);
-      setTimeout(() => navigate('/login'), 3000);
+      setTimeout(() => {
+       setMessage('');
+       setSuccess(false);
+        navigate('/login')
+      }, 3000); 
+    
+      
     } catch (error) {
       setMessage(error.response?.data?.message || 'Reset failed.');
       setSuccess(false);

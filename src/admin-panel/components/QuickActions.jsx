@@ -6,6 +6,7 @@ const actions = [
   { title: 'Add Property', icon: <FiPlusCircle />, link: '/admin-panel/create-new-property' },
   { title: 'Request Listings', icon: <FiCheckSquare />, link: '/admin-panel/requested-property' },
   { title: 'Supply Listings', icon: <FiCheckSquare />, link: '/admin-panel/supplied-property' },
+  { title: 'Asset & Other property', icon: <FiCheckSquare />, link: '/admin-panel/asset-property' },
 ];
 export default function QuickActions() {
   return (

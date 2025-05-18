@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../api/axiosClient";
 import { FiTrash2, FiEdit, FiSend } from "react-icons/fi";
+import { useParams } from "react-router-dom";
 
 export default function InboxMessagesPanel() {
   const [messages, setMessages] = useState([]);
@@ -9,7 +10,8 @@ export default function InboxMessagesPanel() {
   const [selectedMessageId, setSelectedMessageId] = useState(null);
   const [editingMessageId, setEditingMessageId] = useState(null);
   const [editedContent, setEditedContent] = useState("");
-
+ const {id} = useParams();
+ console.log("URI ID:", id);
   useEffect(() => {
     axiosClient.get("/messages")
       .then(res => {
@@ -21,7 +23,8 @@ export default function InboxMessagesPanel() {
         setLoading(false);
       });
   }, []);
-
+ console.log("Messages:", messages);
+ console.log("messages id:", messages.map(msg => msg._id));
   const handleDelete = (id) => {
     if (!window.confirm("Delete this message?")) return;
 

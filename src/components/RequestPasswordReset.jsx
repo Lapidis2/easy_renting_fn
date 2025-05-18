@@ -12,6 +12,12 @@ export default function RequestPasswordReset() {
       const res = await axiosClient.post('/request-password-reset', { email });
       setMessage(res.data.message);
       setSuccess(true);
+
+      setTimeout(() => {
+        setMessage('');
+        setEmail('');
+        setSuccess(false);
+      }, 3000); // Clear message after 3 seconds
     } catch (err) {
       setMessage(err.response?.data?.message || 'Something went wrong.');
       setSuccess(false);

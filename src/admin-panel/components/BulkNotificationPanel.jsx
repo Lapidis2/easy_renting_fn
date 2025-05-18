@@ -112,14 +112,14 @@ export default function BulkNotificationPanel() {
               <div className="flex space-x-3">
                 <button
                   onClick={() => handleEdit(n)}
-                  className="text-blue-500 hover:text-blue-700"
+                  className="text-blue-500 cursor-pointer hover:text-blue-700"
                   title="Edit"
                 >
                   <FiEdit />
                 </button>
                 <button
                   onClick={() => handleDelete(n._id)}
-                  className="text-red-500 hover:text-red-700"
+                  className="text-red-500 cursor-pointer hover:text-red-700"
                   title="Delete"
                 >
                   <FiTrash2 />

@@ -25,6 +25,7 @@ const DashboardWidgets = () => {
       try {
         const response = await axiosClient.get("/dashboard-stats");
         setStats(response.data);
+        console.log("Dashboard stats:", response.data);
       } catch (error) {
         console.error("Error fetching dashboard stats:", error);
       }

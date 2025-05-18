@@ -4,7 +4,8 @@ import ApartmentCards from "./Appatment.cards";
 import Footer from "./Footer";
 import AssetProperty from "./AssetProperty";
 import SearchBar from "./Home/SearchBar";
-import {NavBar} from "./NavBar";
+import { NavBar } from "./NavBar";
+import NotificationBanner from './NotificationBanner';
 
 const Home = () => {
   const [filteredAssets, setFilteredAssets] = useState([]);
@@ -28,12 +29,13 @@ const Home = () => {
         </div>
       ) : (
         <>
+          <NotificationBanner />
           <ApartmentCards />
           <AssetProperty />
         </>
       )}
       <Footer />
-      </div>
+    </div>
   );
 };
 

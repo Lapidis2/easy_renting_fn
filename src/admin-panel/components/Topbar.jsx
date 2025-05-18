@@ -1,7 +1,7 @@
 // src/admin-panel/components/Topbar.jsx
 import React, { useState } from 'react';
 import { FiUser, FiLogOut, FiMenu } from 'react-icons/fi';
-import axios from 'axios';
+import axiosClient from '../../api/axiosClient';
 import { getUser } from '../../utils/UserStorage';
 
 export default function Topbar({ onToggleSidebar }) {
@@ -10,12 +10,11 @@ export default function Topbar({ onToggleSidebar }) {
   const handleLogout = async () => {
     try {
       confirm('Are you sure you want to logout?', user.username);
-      await axios.post('http://localhost:3000/api/logout'); 
+      await axiosClient.post('/logout'); 
 
       localStorage.removeItem('token');
       localStorage.removeItem('user'); 
-      alert('Logged out successfully');
-      window.location.href = '/login'; 
+      window.location.href = '/'; 
     } catch (err) {
       console.error('Logout failed:', err);
       alert('Logout failed, please try again!');

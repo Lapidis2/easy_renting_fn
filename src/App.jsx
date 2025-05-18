@@ -10,15 +10,11 @@ import ListingDetails from './components/Home/ListingDetails';
 import RequestPropertiesForm from './components/RequestPropertyForm';
 import PropertyTypeCards from './pages/PropertyTypeCards';
 import AssetPropertyListByType from './pages/AssetPropertyListByType'
-
 import PropertyRequested from "./pages/RequestedProperty"
 import PropertyRequestedDetail from "./pages/RequestedPropertyDetail"
 import PropertySupplied from "./pages/SupplyProperty"
 import SupplyDetail from './pages/SupplyDetail';
-
-
 import AssetDetailPage from './pages/AssetDetail';
-
 // //admin-panel imports
 import DashboardPanel from './admin-panel/pages/Dashboard';
 import Properties from './admin-panel/pages/Properties';
@@ -39,9 +35,11 @@ import AdminPropertyDetail from './admin-panel/pages/PropertiesDetail';
 import EditProperty from './admin-panel/pages/EditProperty';
 import ResetPassword from './pages/ResetPassword';
 import RequestPasswordReset from './components/RequestPasswordReset';
+import AdminAssetProperty from './admin-panel/pages/AdminAssetProperty';
+import AdminAssetPropertyDetail from './admin-panel/components/AssetPropertyDetail';
+import UpdateAssetProperty from './admin-panel/components/UpdateAssetProperty';
 //protected route imports
 import ProtectedRoute from './config/ProtectedRoute';
-
 function App() {
   return (
     <Router>
@@ -61,19 +59,19 @@ function App() {
         <Route path="/requested-property-detail/:id" element={<PropertyRequestedDetail />} />
         <Route path="/property-requested" element={<PropertyRequested />} />
         <Route path="/supplied-property" element={<PropertySupplied />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/reset-password/:token"element={<ResetPassword />} />
          <Route path="/forgot-password" element={<RequestPasswordReset />} />
-
-
         <Route path="/supply-property-detail/:id" element={<SupplyDetail />} />
         <Route path="/get-properties/type/:type" element={<PropertyTypeCards />} />
-        
         {/* protected routes for only admin*/}
       <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
         <Route path="/admin-panel/users/:id" element={<UserDetail />} />
         <Route path="/admin-panel" element={<DashboardPanel />} />
         <Route path='admin-panel/property/:id' element={<AdminPropertyDetail />} />
         <Route path="/admin-panel/properties" element={<Properties />} />
+        <Route path="/admin-panel/asset-property/:id" element={<AdminAssetPropertyDetail />} />
+        <Route path="/admin-panel/asset-property" element={<AdminAssetProperty />} />
+        <Route path="/admin-panel/update-asset-property/:id" element={<UpdateAssetProperty />} />
         <Route path='/admin-panel/edit-property/:id' element={<EditProperty/>} />
         <Route path="/admin-panel/create-new-property" element={<CreateNewProperty />} />
         <Route path="/admin-panel/users" element={<Users />} />

@@ -11,6 +11,7 @@ const NotificationBanner = () => {
       try {
         const res = await axiosClient.get("/notifications");
         const data = await res.json();
+        console.log('notications', data)
         if (data.length > 0) {
           const latest = data[0]; // assumes the most recent is first
           const dismissed = sessionStorage.getItem("dismissed_" + latest._id);
@@ -38,7 +39,7 @@ const NotificationBanner = () => {
   if (!notification || !visible) return null;
 
   return (
-    <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 shadow-md flex justify-between items-center fixed top-0 w-full z-50">
+    <div className="bg-black border-l-4 border-blue-500 text-gray-600 p-4 shadow-md flex justify-between items-center fixed top-0 w-full z-50">
       <div>
         <strong>{notification.title}</strong>
         <p>{notification.message}</p>

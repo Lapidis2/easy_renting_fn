@@ -38,11 +38,14 @@ import RequestPasswordReset from './components/RequestPasswordReset';
 import AdminAssetProperty from './admin-panel/pages/AdminAssetProperty';
 import AdminAssetPropertyDetail from './admin-panel/components/AssetPropertyDetail';
 import UpdateAssetProperty from './admin-panel/components/UpdateAssetProperty';
+import AdminCreateAssetProperty from './admin-panel/components/CreateNewAssetPropert'
 //protected route imports
 import ProtectedRoute from './config/ProtectedRoute';
+import NotificationBanner from './components/NotificationBanner';
 function App() {
   return (
     <Router>
+      <NotificationBanner />
       {/* <NavBar /> */}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -71,6 +74,7 @@ function App() {
         <Route path="/admin-panel/properties" element={<Properties />} />
         <Route path="/admin-panel/asset-property/:id" element={<AdminAssetPropertyDetail />} />
         <Route path="/admin-panel/asset-property" element={<AdminAssetProperty />} />
+        <Route path="/admin-panel/create-asset-property" element={<AdminCreateAssetProperty />} />
         <Route path="/admin-panel/update-asset-property/:id" element={<UpdateAssetProperty />} />
         <Route path='/admin-panel/edit-property/:id' element={<EditProperty/>} />
         <Route path="/admin-panel/create-new-property" element={<CreateNewProperty />} />

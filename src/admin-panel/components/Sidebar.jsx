@@ -2,9 +2,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {FiHome, FiUsers, FiFileText, FiSettings, FiMessageCircle} from 'react-icons/fi';
+import { AiFillFileText } from 'react-icons/ai';
 const navItems = [
   { name: 'Dashboard', icon: <FiHome />, path: '/admin-panel' },
   { name: 'Properties', icon: <FiFileText />, path: '/admin-panel/properties' },
+  { name: 'Asset Properties', icon: <AiFillFileText />, path: '/admin-panel/asset-property' },
   { name: 'Users', icon: <FiUsers />, path: '/admin-panel/users' },
   { name: 'Messages', icon: <FiMessageCircle />, path: '/admin-panel/messages' },
   { name: 'Settings', icon: <FiSettings />, path: '/admin-panel/settings' },

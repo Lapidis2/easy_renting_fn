@@ -1,4 +1,3 @@
-// components/NotificationBanner.jsx
 import React,{ useEffect, useState } from "react";
 import axiosClient from "../api/axiosClient";
 
@@ -13,13 +12,17 @@ const NotificationBanner = () => {
         const data = await res.json();
         console.log('notications', data)
         if (data.length > 0) {
-          const latest = data[0]; // assumes the most recent is first
+          const latest = data[0]; 
           const dismissed = sessionStorage.getItem("dismissed_" + latest._id);
 
           if (!dismissed) {
             setNotification(latest);
             setVisible(true);
           }
+        }
+
+        if (notification == ""){
+          setNotification(sampleDta)
         }
       } catch (err) {
         console.error("Failed to load notification:", err);

@@ -23,7 +23,6 @@ const Home = () => {
       setIsLoading(false);
     }, 1500); // 1.5 seconds loading simulation
   };
-
   return (
     <div className="bg-gray-50 mt-20">
       <NavBar />

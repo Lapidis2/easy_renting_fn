@@ -30,12 +30,12 @@ const CreateAssetProperty = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
     if (type === 'file') {
       const file = files[0];
       setImage(file);
-      setPreview(URL.createObjectURL(file));
+      setPreview(file ? URL.createObjectURL(file) : null);
     } else if (type === 'checkbox') {
       setFormData(prev => ({ ...prev, [name]: checked }));
     } else {
@@ -43,19 +43,34 @@ const CreateAssetProperty = () => {
     }
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
+    // Build FormData
     const data = new FormData();
-    Object.entries(formData).forEach(([key, val]) => data.append(key, val));
-    if (image) data.append('image', image);
+    Object.entries(formData).forEach(([key, val]) => {
+      // For boolean, convert to string
+      if (typeof val === 'boolean') {
+        data.append(key, val.toString());
+      } else if (val !== '') {
+        data.append(key, val);
+      }
+    });
+    if (image) {
+      data.append('image', image);
+    }
+
     try {
-      await axios.post('/property-asset', data);
+      const res = await axios.post('/property-asset', data, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      if (res.status !== 201) throw new Error('Creation failed');
       navigate('/admin-panel/asset-property');
     } catch (err) {
-      console.error(err);
-      setError('Creation failed. Please check your input and try again.');
+      console.error('Create error:', err.response?.data || err.message);
+      setError(err.response?.data?.message || 'Creation failed. Please check your inputs.');
     } finally {
       setLoading(false);
     }
@@ -66,21 +81,21 @@ const CreateAssetProperty = () => {
       <div className="max-w-3xl mx-auto p-6 bg-white shadow rounded">
         <h1 className="text-2xl font-semibold mb-6">Create New Asset</h1>
         {error && <p className="text-red-500 mb-4">{error}</p>}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
           <div>
-            <label>Name</label>
+            <label className="block font-medium">Name</label>
             <input
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full border p-2 rounded"
               required
+              className="w-full border p-2 rounded"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label>Type</label>
+              <label className="block font-medium">Type</label>
               <select name="type" value={formData.type} onChange={handleChange} className="w-full border p-2 rounded">
                 <option>Car</option>
                 <option>Motorcycle</option>
@@ -90,7 +105,7 @@ const CreateAssetProperty = () => {
               </select>
             </div>
             <div>
-              <label>Status</label>
+              <label className="block font-medium">Status</label>
               <select name="status" value={formData.status} onChange={handleChange} className="w-full border p-2 rounded">
                 <option>Available</option>
                 <option>Rent</option>
@@ -101,19 +116,22 @@ const CreateAssetProperty = () => {
           </div>
 
           <div>
-            <label>Price</label>
+            <label className="block font-medium">Price</label>
             <input
               name="price"
+              type="number"
+              min="0"
+              step="any"
               value={formData.price}
               onChange={handleChange}
-              className="w-full border p-2 rounded"
               required
+              className="w-full border p-2 rounded"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label>Owner</label>
+              <label className="block font-medium">Owner</label>
               <input
                 name="owner"
                 value={formData.owner}
@@ -122,7 +140,7 @@ const CreateAssetProperty = () => {
               />
             </div>
             <div>
-              <label>Contact</label>
+              <label className="block font-medium">Contact</label>
               <input
                 name="contact"
                 value={formData.contact}
@@ -132,24 +150,36 @@ const CreateAssetProperty = () => {
             </div>
           </div>
 
-          {/* Location & Size */}
           <div>
-            <label>Location</label>
-            <input name="location" value={formData.location} onChange={handleChange} className="w-full border p-2 rounded" />
+            <label className="block font-medium">Location</label>
+            <input
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              className="w-full border p-2 rounded"
+            />
           </div>
+
           {formData.type === 'Land' && (
             <div>
-              <label>Size</label>
-              <input name="size" value={formData.size} onChange={handleChange} className="w-full border p-2 rounded" placeholder='Square meter'/>
+              <label className="block font-medium">Size (sq m)</label>
+              <input
+                name="size"
+                type="number"
+                min="0"
+                step="any"
+                value={formData.size}
+                onChange={handleChange}
+                className="w-full border p-2 rounded"
+              />
             </div>
           )}
 
-          {/* Vehicle fields */}
           {(formData.type === 'Car' || formData.type === 'Motorcycle') && (
             <>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label>Transmission</label>
+                  <label className="block font-medium">Transmission</label>
                   <select name="transmission" value={formData.transmission} onChange={handleChange} className="w-full border p-2 rounded">
                     <option value="">-</option>
                     <option>Automatic</option>
@@ -157,7 +187,7 @@ const CreateAssetProperty = () => {
                   </select>
                 </div>
                 <div>
-                  <label>Fuel</label>
+                  <label className="block font-medium">Fuel</label>
                   <select name="fuel" value={formData.fuel} onChange={handleChange} className="w-full border p-2 rounded">
                     <option value="">-</option>
                     <option>Petrol</option>
@@ -167,6 +197,7 @@ const CreateAssetProperty = () => {
                   </select>
                 </div>
               </div>
+
               <div className="flex items-center gap-4">
                 <label className="flex items-center">
                   <input type="checkbox" name="certified" checked={formData.certified} onChange={handleChange} className="mr-2" /> Certified
@@ -175,51 +206,50 @@ const CreateAssetProperty = () => {
                   <input type="checkbox" name="inspected" checked={formData.inspected} onChange={handleChange} className="mr-2" /> Inspected
                 </label>
               </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label>Warranty</label>
-                  <input name="warranty" value={formData.warranty} onChange={handleChange} className="w-full border p-2 rounded" />
+                  <label className="block font-medium">Warranty</label>
+                  <input name="warranty" value={formData.warranty} onChange={handleChange} className="w-full border p-2 rounded"/>
                 </div>
                 <div>
-                  <label>Rental Price</label>
-                  <input name="rentalPrice" value={formData.rentalPrice} onChange={handleChange} className="w-full border p-2 rounded" />
+                  <label className="block font-medium">Rental Price</label>
+                  <input name="rentalPrice" type="number" min="0" step="any" value={formData.rentalPrice} onChange={handleChange} className="w-full border p-2 rounded"/>
                 </div>
               </div>
+
               <div>
-                <label>Rent Duration</label>
-                <input name="rentDuration" value={formData.rentDuration} onChange={handleChange} className="w-full border p-2 rounded" />
+                <label className="block font-medium">Rent Duration</label>
+                <input name="rentDuration" value={formData.rentDuration} onChange={handleChange} placeholder="e.g. 1 month" className="w-full border p-2 rounded"/>
               </div>
             </>
           )}
 
-          {/* Clothes fields */}
           {formData.type === 'Clothes' && (
-            <>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label>Condition</label>
-                  <select name="condition" value={formData.condition} onChange={handleChange} className="w-full border p-2 rounded">
-                    <option>New</option>
-                    <option>Used</option>
-                  </select>
-                </div>
-                <div>
-                  <label>Clothe Size</label>
-                  <input name="sizeCloth" value={formData.sizeCloth} onChange={handleChange} className="w-full border p-2 rounded" placeholder='ex: L,XL,M...' />
-                </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block font-medium">Condition</label>
+                <select name="condition" value={formData.condition} onChange={handleChange} className="w-full border p-2 rounded">
+                  <option>New</option>
+                  <option>Used</option>
+                </select>
               </div>
-            </>
+              <div>
+                <label className="block font-medium">Cloth Size</label>
+                <input name="sizeCloth" value={formData.sizeCloth} onChange={handleChange} className="w-full border p-2 rounded" placeholder="e.g. L, XL, M..."/>
+              </div>
+            </div>
           )}
 
           <div>
-            <label>Description</label>
-            <textarea name="description" value={formData.description} onChange={handleChange} rows="4" className="w-full border p-2 rounded" />
+            <label className="block font-medium">Description</label>
+            <textarea name="description" value={formData.description} onChange={handleChange} rows="4" className="w-full border p-2 rounded"/>
           </div>
 
           <div>
-            <label>Image</label>
-            <input type="file" name="image" onChange={handleChange} className="block" />
-            {preview && <img src={preview} alt="Preview" className="mt-2 h-48 object-cover rounded" />}          
+            <label className="block font-medium">Image</label>
+            <input type="file" name="image" onChange={handleChange} accept="image/*" className="block" />
+            {preview && <img src={preview} alt="Preview" className="mt-2 h-48 object-cover rounded" />}
           </div>
 
           <button type="submit" disabled={loading} className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700">

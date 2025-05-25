@@ -178,9 +178,9 @@ const CreateAssetProperty = () => {
                 <div>
                   <label className="block font-medium">Transmission</label>
                   <select name="transmission" value={formData.transmission} onChange={handleChange} className="w-full border p-2 rounded">
-                    <option value="">-</option>
-                    <option>Automatic</option>
-                    <option>manual</option>
+                    <option value="">Select..</option>
+                    <option >Automatic</option>
+                    <option>Manual</option>
                   </select>
                 </div>
                 <div>

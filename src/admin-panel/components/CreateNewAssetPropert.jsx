@@ -119,9 +119,7 @@ const CreateAssetProperty = () => {
             <label className="block font-medium">Price</label>
             <input
               name="price"
-              type="number"
-              min="0"
-              step="any"
+              type="text"
               value={formData.price}
               onChange={handleChange}
               required
@@ -165,9 +163,8 @@ const CreateAssetProperty = () => {
               <label className="block font-medium">Size (sq m)</label>
               <input
                 name="size"
-                type="number"
-                min="0"
-                step="any"
+                type="text"
+               
                 value={formData.size}
                 onChange={handleChange}
                 className="w-full border p-2 rounded"
@@ -214,7 +211,7 @@ const CreateAssetProperty = () => {
                 </div>
                 <div>
                   <label className="block font-medium">Rental Price</label>
-                  <input name="rentalPrice" type="number" min="0" step="any" value={formData.rentalPrice} onChange={handleChange} className="w-full border p-2 rounded"/>
+                  <input name="rentalPrice" type="text"  value={formData.rentalPrice} onChange={handleChange} className="w-full border p-2 rounded"/>
                 </div>
               </div>
 

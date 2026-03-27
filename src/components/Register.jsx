@@ -41,6 +41,7 @@ const Register = () => {
 	  }, 2000); 
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred while registering.');
+		console.log("ERROR DATA:", error.response?.data);
       console.error('Error during registration:', err);
     } finally {
       setLoading(false);
